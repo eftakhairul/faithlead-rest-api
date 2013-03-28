@@ -1,0 +1,78 @@
+[26-Mar-2013 18:03:23 UTC] PHP Warning:  Module 'apc' already loaded in Unknown on line 0
+[26-Mar-2013 18:07:47 UTC] PHP Warning:  Module 'apc' already loaded in Unknown on line 0
+[26-Mar-2013 18:07:47 UTC] PHP Warning:  Module 'apc' already loaded in Unknown on line 0
+[26-Mar-2013 18:12:49 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Version' not found in /Users/user/Sites/faithlead/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/DependencyInjection/DoctrineExtension.php on line 298
+[26-Mar-2013 18:12:49 UTC] PHP Stack trace:
+[26-Mar-2013 18:12:49 UTC] PHP   1. {main}() /Users/user/Sites/faithlead/app/console:0
+[26-Mar-2013 18:12:49 UTC] PHP   2. Symfony\Component\Console\Application->run() /Users/user/Sites/faithlead/app/console:22
+[26-Mar-2013 18:12:49 UTC] PHP   3. Symfony\Bundle\FrameworkBundle\Console\Application->doRun() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/Console/Application.php:106
+[26-Mar-2013 18:12:49 UTC] PHP   4. Symfony\Bundle\FrameworkBundle\Console\Application->registerCommands() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Console/Application.php:68
+[26-Mar-2013 18:12:49 UTC] PHP   5. Symfony\Component\HttpKernel\Kernel->boot() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Console/Application.php:83
+[26-Mar-2013 18:12:49 UTC] PHP   6. Symfony\Component\HttpKernel\Kernel->initializeContainer() /Users/user/Sites/faithlead/app/bootstrap.php.cache:378
+[26-Mar-2013 18:12:49 UTC] PHP   7. Symfony\Component\HttpKernel\Kernel->buildContainer() /Users/user/Sites/faithlead/app/bootstrap.php.cache:593
+[26-Mar-2013 18:12:49 UTC] PHP   8. Symfony\Component\DependencyInjection\ContainerBuilder->compile() /Users/user/Sites/faithlead/app/bootstrap.php.cache:657
+[26-Mar-2013 18:12:49 UTC] PHP   9. Symfony\Component\DependencyInjection\Compiler\Compiler->compile() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/ContainerBuilder.php:553
+[26-Mar-2013 18:12:49 UTC] PHP  10. Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass->process() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/Compiler/Compiler.php:119
+[26-Mar-2013 18:12:49 UTC] PHP  11. Symfony\Component\DependencyInjection\Compiler\MergeExtensionConfigurationPass->process() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/HttpKernel/DependencyInjection/MergeExtensionConfigurationPass.php:39
+[26-Mar-2013 18:12:49 UTC] PHP  12. Doctrine\Bundle\DoctrineBundle\DependencyInjection\DoctrineExtension->load() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/Compiler/MergeExtensionConfigurationPass.php:50
+[26-Mar-2013 18:12:49 UTC] PHP  13. Doctrine\Bundle\DoctrineBundle\DependencyInjection\DoctrineExtension->ormLoad() /Users/user/Sites/faithlead/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/DependencyInjection/DoctrineExtension.php:51
+[26-Mar-2013 18:12:49 UTC] PHP  14. Doctrine\Bundle\DoctrineBundle\DependencyInjection\DoctrineExtension->loadOrmEntityManager() /Users/user/Sites/faithlead/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/DependencyInjection/DoctrineExtension.php:254
+[26-Mar-2013 18:15:31 UTC] PHP Fatal error:  Class 'Doctrine\Bundle\DoctrineBundle\DoctrineBundle' not found in /Users/user/Sites/faithlead/app/AppKernel.php on line 17
+[26-Mar-2013 18:15:31 UTC] PHP Stack trace:
+[26-Mar-2013 18:15:31 UTC] PHP   1. {main}() /Users/user/Sites/faithlead/app/console:0
+[26-Mar-2013 18:15:31 UTC] PHP   2. Symfony\Component\Console\Application->run() /Users/user/Sites/faithlead/app/console:22
+[26-Mar-2013 18:15:31 UTC] PHP   3. Symfony\Bundle\FrameworkBundle\Console\Application->doRun() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/Console/Application.php:106
+[26-Mar-2013 18:15:31 UTC] PHP   4. Symfony\Bundle\FrameworkBundle\Console\Application->registerCommands() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Console/Application.php:68
+[26-Mar-2013 18:15:31 UTC] PHP   5. Symfony\Component\HttpKernel\Kernel->boot() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Console/Application.php:83
+[26-Mar-2013 18:15:31 UTC] PHP   6. Symfony\Component\HttpKernel\Kernel->initializeBundles() /Users/user/Sites/faithlead/app/bootstrap.php.cache:377
+[26-Mar-2013 18:15:31 UTC] PHP   7. AppKernel->registerBundles() /Users/user/Sites/faithlead/app/bootstrap.php.cache:543
+[26-Mar-2013 18:16:58 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Version' not found in /Users/user/Sites/faithlead/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/DependencyInjection/DoctrineExtension.php on line 298
+[26-Mar-2013 18:16:58 UTC] PHP Stack trace:
+[26-Mar-2013 18:16:58 UTC] PHP   1. {main}() /Users/user/Sites/faithlead/app/console:0
+[26-Mar-2013 18:16:58 UTC] PHP   2. Symfony\Component\Console\Application->run() /Users/user/Sites/faithlead/app/console:22
+[26-Mar-2013 18:16:58 UTC] PHP   3. Symfony\Bundle\FrameworkBundle\Console\Application->doRun() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/Console/Application.php:106
+[26-Mar-2013 18:16:58 UTC] PHP   4. Symfony\Bundle\FrameworkBundle\Console\Application->registerCommands() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Console/Application.php:68
+[26-Mar-2013 18:16:58 UTC] PHP   5. Symfony\Component\HttpKernel\Kernel->boot() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Console/Application.php:83
+[26-Mar-2013 18:16:58 UTC] PHP   6. Symfony\Component\HttpKernel\Kernel->initializeContainer() /Users/user/Sites/faithlead/app/bootstrap.php.cache:378
+[26-Mar-2013 18:16:58 UTC] PHP   7. Symfony\Component\HttpKernel\Kernel->buildContainer() /Users/user/Sites/faithlead/app/bootstrap.php.cache:593
+[26-Mar-2013 18:16:58 UTC] PHP   8. Symfony\Component\DependencyInjection\ContainerBuilder->compile() /Users/user/Sites/faithlead/app/bootstrap.php.cache:657
+[26-Mar-2013 18:16:58 UTC] PHP   9. Symfony\Component\DependencyInjection\Compiler\Compiler->compile() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/ContainerBuilder.php:553
+[26-Mar-2013 18:16:58 UTC] PHP  10. Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass->process() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/Compiler/Compiler.php:119
+[26-Mar-2013 18:16:58 UTC] PHP  11. Symfony\Component\DependencyInjection\Compiler\MergeExtensionConfigurationPass->process() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/HttpKernel/DependencyInjection/MergeExtensionConfigurationPass.php:39
+[26-Mar-2013 18:16:58 UTC] PHP  12. Doctrine\Bundle\DoctrineBundle\DependencyInjection\DoctrineExtension->load() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/Compiler/MergeExtensionConfigurationPass.php:50
+[26-Mar-2013 18:16:58 UTC] PHP  13. Doctrine\Bundle\DoctrineBundle\DependencyInjection\DoctrineExtension->ormLoad() /Users/user/Sites/faithlead/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/DependencyInjection/DoctrineExtension.php:51
+[26-Mar-2013 18:16:58 UTC] PHP  14. Doctrine\Bundle\DoctrineBundle\DependencyInjection\DoctrineExtension->loadOrmEntityManager() /Users/user/Sites/faithlead/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/DependencyInjection/DoctrineExtension.php:254
+[26-Mar-2013 18:20:03 UTC] PHP Fatal error:  Class 'Doctrine\Bundle\DoctrineBundle\DoctrineBundle' not found in /Users/user/Sites/faithlead/app/AppKernel.php on line 17
+[26-Mar-2013 18:20:03 UTC] PHP Stack trace:
+[26-Mar-2013 18:20:03 UTC] PHP   1. {main}() /Users/user/Sites/faithlead/app/console:0
+[26-Mar-2013 18:20:03 UTC] PHP   2. Symfony\Component\Console\Application->run() /Users/user/Sites/faithlead/app/console:22
+[26-Mar-2013 18:20:03 UTC] PHP   3. Symfony\Bundle\FrameworkBundle\Console\Application->doRun() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/Console/Application.php:106
+[26-Mar-2013 18:20:03 UTC] PHP   4. Symfony\Bundle\FrameworkBundle\Console\Application->registerCommands() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Console/Application.php:68
+[26-Mar-2013 18:20:03 UTC] PHP   5. Symfony\Component\HttpKernel\Kernel->boot() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Console/Application.php:83
+[26-Mar-2013 18:20:03 UTC] PHP   6. Symfony\Component\HttpKernel\Kernel->initializeBundles() /Users/user/Sites/faithlead/app/bootstrap.php.cache:377
+[26-Mar-2013 18:20:03 UTC] PHP   7. AppKernel->registerBundles() /Users/user/Sites/faithlead/app/bootstrap.php.cache:543
+[26-Mar-2013 18:23:31 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Version' not found in /Users/user/Sites/faithlead/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/DependencyInjection/DoctrineExtension.php on line 298
+[26-Mar-2013 18:23:31 UTC] PHP Stack trace:
+[26-Mar-2013 18:23:31 UTC] PHP   1. {main}() /Users/user/Sites/faithlead/app/console:0
+[26-Mar-2013 18:23:31 UTC] PHP   2. Symfony\Component\Console\Application->run() /Users/user/Sites/faithlead/app/console:22
+[26-Mar-2013 18:23:31 UTC] PHP   3. Symfony\Bundle\FrameworkBundle\Console\Application->doRun() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/Console/Application.php:106
+[26-Mar-2013 18:23:31 UTC] PHP   4. Symfony\Bundle\FrameworkBundle\Console\Application->registerCommands() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Console/Application.php:68
+[26-Mar-2013 18:23:31 UTC] PHP   5. Symfony\Component\HttpKernel\Kernel->boot() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Console/Application.php:83
+[26-Mar-2013 18:23:31 UTC] PHP   6. Symfony\Component\HttpKernel\Kernel->initializeContainer() /Users/user/Sites/faithlead/app/bootstrap.php.cache:378
+[26-Mar-2013 18:23:31 UTC] PHP   7. Symfony\Component\HttpKernel\Kernel->buildContainer() /Users/user/Sites/faithlead/app/bootstrap.php.cache:593
+[26-Mar-2013 18:23:31 UTC] PHP   8. Symfony\Component\DependencyInjection\ContainerBuilder->compile() /Users/user/Sites/faithlead/app/bootstrap.php.cache:657
+[26-Mar-2013 18:23:31 UTC] PHP   9. Symfony\Component\DependencyInjection\Compiler\Compiler->compile() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/ContainerBuilder.php:553
+[26-Mar-2013 18:23:31 UTC] PHP  10. Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass->process() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/Compiler/Compiler.php:119
+[26-Mar-2013 18:23:31 UTC] PHP  11. Symfony\Component\DependencyInjection\Compiler\MergeExtensionConfigurationPass->process() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/HttpKernel/DependencyInjection/MergeExtensionConfigurationPass.php:39
+[26-Mar-2013 18:23:31 UTC] PHP  12. Doctrine\Bundle\DoctrineBundle\DependencyInjection\DoctrineExtension->load() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/Compiler/MergeExtensionConfigurationPass.php:50
+[26-Mar-2013 18:23:31 UTC] PHP  13. Doctrine\Bundle\DoctrineBundle\DependencyInjection\DoctrineExtension->ormLoad() /Users/user/Sites/faithlead/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/DependencyInjection/DoctrineExtension.php:51
+[26-Mar-2013 18:23:31 UTC] PHP  14. Doctrine\Bundle\DoctrineBundle\DependencyInjection\DoctrineExtension->loadOrmEntityManager() /Users/user/Sites/faithlead/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/DependencyInjection/DoctrineExtension.php:254
+[26-Mar-2013 19:29:14 UTC] PHP Fatal error:  Class 'FOS\RestBundle\FOSRestBundle' not found in /Users/user/Sites/faithlead/app/AppKernel.php on line 23
+[26-Mar-2013 19:29:14 UTC] PHP Stack trace:
+[26-Mar-2013 19:29:14 UTC] PHP   1. {main}() /Users/user/Sites/faithlead/app/console:0
+[26-Mar-2013 19:29:14 UTC] PHP   2. Symfony\Component\Console\Application->run() /Users/user/Sites/faithlead/app/console:22
+[26-Mar-2013 19:29:14 UTC] PHP   3. Symfony\Bundle\FrameworkBundle\Console\Application->doRun() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Component/Console/Application.php:106
+[26-Mar-2013 19:29:14 UTC] PHP   4. Symfony\Bundle\FrameworkBundle\Console\Application->registerCommands() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Console/Application.php:68
+[26-Mar-2013 19:29:14 UTC] PHP   5. Symfony\Component\HttpKernel\Kernel->boot() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Console/Application.php:83
+[26-Mar-2013 19:29:14 UTC] PHP   6. Symfony\Component\HttpKernel\Kernel->initializeBundles() /Users/user/Sites/faithlead/app/bootstrap.php.cache:377
+[26-Mar-2013 19:29:14 UTC] PHP   7. AppKernel->registerBundles() /Users/user/Sites/faithlead/app/bootstrap.php.cache:543

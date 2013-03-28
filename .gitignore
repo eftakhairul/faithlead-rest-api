@@ -1,0 +1,6 @@
+.DS_Store
+.idea/*
+nbproject
+app/cache/*
+app/logs/*
+
