@@ -2,14 +2,18 @@ faithlead_rest_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: FaithleadRestBundle:Default:index }
 
-faithlead_rest_user_all:
-    pattern:  /users
-    defaults: { _controller: FaithleadRestBundle:User:all, _format:json }
-    requirements:
-        _method: GET
+#faithlead_rest_user_all:
+#    pattern:  /users
+#    defaults: { _controller: FaithleadRestBundle:User:all, _format:~ }
+#    requirements:
+#        _method: GET
+#
+#faithlead_rest_user_create:
+#    pattern:  /users
+#    defaults: { _controller: FaithleadRestBundle:User:create, _format: json }
+#    requirements:
+#        _method: POST
 
-faithlead_rest_user_create:
-    pattern:  /users.{_format}
-    defaults: { _controller: FaithleadRestBundle:User:create, _format: ~ }
-    requirements:
-        _method: POST
+user:
+    type: rest
+    resource: Faithlead\RestBundle\Controller\UserController

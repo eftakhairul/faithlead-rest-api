@@ -10,30 +10,51 @@ namespace Faithlead\RestBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Type;
 
 /**
- * @MongoDB\Document(collection="user")
+ * @MongoDB\Document(collection="users")
+ * @ExclusionPolicy("all")
  */
 
 class User{
 
     /**
-     * @MongoDB\Id
+     * @MongoDB\id
      */
     protected $id;
 
     
-    /** @MongoDB\String @MongoDB\Index(unique=true) */
+    /**
+     * @MongoDB\String @MongoDB\Index(unique=true)
+     * @Expose
+     * @Type("string")
+     *
+     */
     protected $email;
 
-    /** @MongoDB\String */
+    /**
+     * @MongoDB\String
+     * @Expose
+     * @Type("string")
+     */
     protected $password;
 
-    /** @MongoDB\String */
-    protected $firstName;
+    /**
+     * @MongoDB\String
+     * @Assert\NotBlank()
+     * @Expose
+     * @Type("string")
+     */
+    public $firstName;
 
-    /** @MongoDB\String */
+    /**
+     * @MongoDB\String
+     * @Expose
+     * @Type("string")
+     */
     protected $lastName;
 
     /**
@@ -42,16 +63,24 @@ class User{
      */
     protected $role = 'user';
 
-    /** @MongoDB\Boolean */
+    /**
+     * @MongoDB\Boolean
+     */
     protected $accountConfirmed = true;
 
-    /** @MongoDB\Date */
+    /**
+     * @MongoDB\Date
+     */
     protected $createdAt;
 
-    /** @MongoDB\Date */
+    /**
+     * @MongoDB\Date
+     */
     protected $updatedAt;
 
-    /** @MongoDB\Boolean */
+    /**
+     * @MongoDB\Boolean
+     */
     protected $status = true;
 
     /**

@@ -1,3 +1,8 @@
+nmpolo_rest:
+    resource: "@FaithleadRestBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 faithlead_rest:
     resource: "@FaithleadRestBundle/Resources/config/routing.yml"
     prefix:   /

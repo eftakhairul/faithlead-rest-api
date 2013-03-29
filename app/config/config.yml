@@ -77,3 +77,14 @@ doctrine_mongodb:
 
 # app/config/config.yml
 nelmio_api_doc: ~
+
+sensio_framework_extra:
+    view:
+        annotations: false
+
+fos_rest:
+    param_fetcher_listener: true
+    body_listener: true
+    format_listener: true
+    view:
+        view_response_listener: 'force'

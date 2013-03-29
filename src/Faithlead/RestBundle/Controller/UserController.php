@@ -49,29 +49,38 @@ class UserController extends FosRestController{
      * )
      */
 
-    public function createAction(Request $request){
+    public function postAction(Request $request){
 
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
 
         $user = new User();
 
-        $form = $this->get('form.factory')->create(new UserType());
+        //$content = json_decode($request->getParameter('json'));
+
+        $form = $this->getForm($user);
 
 //        $data = array(
-//            'firstName' => $_POST['firstName'],
+//            'firstName' => isset($_POST['firstName']),
 //            'lastName' => $_POST['lastName'],
 //            'email'=> $_POST['email'],
 //            'password' => $_POST['password']
 //        );
 
-        $request = $this->get('request');
+        //$request = $this->get('request');
         if ('POST' == $request->getMethod()) {
-            $form->bindRequest($request);
+            $form->bind(array(
+                "firstName" => $this->getRequest()->request->get('firstName'),
+                "lastName" => $this->getRequest()->request->get('lastName'),
+                "email" => $this->getRequest()->request->get('email'),
+                "password" => $this->getRequest()->request->get('password'),
+                )
+            );
             if ($form->isValid()) {
                 return array('users' => $form->getData());
+            }else{
+                return array($form);
             }
         }
-
     }
 
 
