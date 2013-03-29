@@ -1,6 +1,6 @@
 <?php
 
-namespace Faithlead\Bundle\RestBundle\Tests\Controller;
+namespace Faithlead\RestBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

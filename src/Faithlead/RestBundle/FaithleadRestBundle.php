@@ -1,6 +1,6 @@
 <?php
 
-namespace Faithlead\Bundle\RestBundle;
+namespace Faithlead\RestBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

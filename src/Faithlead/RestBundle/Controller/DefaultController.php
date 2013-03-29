@@ -1,6 +1,6 @@
 <?php
 
-namespace Faithlead\Bundle\RestBundle\Controller;
+namespace Faithlead\RestBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

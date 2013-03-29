@@ -1,5 +1,5 @@
 parameters:
-#    faithlead_rest.example.class: Faithlead\Bundle\RestBundle\Example
+#    faithlead_rest.example.class: Faithlead\RestBundle\Example
 
 services:
 #    faithlead_rest.example:

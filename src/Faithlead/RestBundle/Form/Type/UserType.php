@@ -5,7 +5,7 @@
  * Date: 3/28/13
  */
 
-namespace Faithlead\Bundle\RestBundle\Form\Type;
+namespace Faithlead\RestBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,7 +30,7 @@ class UserType extends AbstractType{
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Faithlead\Bundle\RestBundle\Document\User',
+            'data_class' => 'Faithlead\RestBundle\Document\User',
             'csrf_protection'   => false,
         ));
     }

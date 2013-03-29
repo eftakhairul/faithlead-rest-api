@@ -1,15 +1,15 @@
 <?php
 
-namespace Faithlead\Bundle\RestBundle\Controller;
+namespace Faithlead\RestBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Faithlead\Bundle\RestBundle\Form\Type\UserType;
+use Faithlead\RestBundle\Form\Type\UserType;
 
 use FOS\RestBundle\Controller\Annotations\View,
     FOS\RestBundle\Controller\FOSRestController,
     FOS\RestBundle\Controller\Annotations\RouteResource;
 
-use Faithlead\Bundle\RestBundle\Document\User;
+use Faithlead\RestBundle\Document\User;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
@@ -45,7 +45,7 @@ class UserController extends FosRestController{
      *
      * @View()
      * @ApiDoc(
-     *      input="Faithlead\Bundle\RestBundle\Form\Type\UserType"
+     *      input="Faithlead\RestBundle\Form\Type\UserType"
      * )
      */
 
