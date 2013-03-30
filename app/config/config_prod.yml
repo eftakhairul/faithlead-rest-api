@@ -6,8 +6,8 @@ imports:
 # strict_requirements = true). So we can disable the requirements check completely for
 # enhanced performance with strict_requirements = null.
 framework:
-    router:   { resource: "%kernel.root_dir%/config/routing_dev.yml" }
-    profiler: { only_exceptions: false }
+    router:
+        strict_requirements: null
 
 #doctrine:
 #    orm:
