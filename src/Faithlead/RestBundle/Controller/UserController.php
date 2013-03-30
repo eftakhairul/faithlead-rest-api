@@ -55,18 +55,8 @@ class UserController extends FosRestController{
 
         $user = new User();
 
-        //$content = json_decode($request->getParameter('json'));
-
         $form = $this->getForm($user);
 
-//        $data = array(
-//            'firstName' => isset($_POST['firstName']),
-//            'lastName' => $_POST['lastName'],
-//            'email'=> $_POST['email'],
-//            'password' => $_POST['password']
-//        );
-
-        //$request = $this->get('request');
         if ('POST' == $request->getMethod()) {
             $form->bind(array(
                 "firstName" => $this->getRequest()->request->get('firstName'),
@@ -76,25 +66,14 @@ class UserController extends FosRestController{
                 )
             );
             if ($form->isValid()) {
-                return array('users' => $form->getData());
+                $dm->persist($user);
+                $dm->flush();
+                return array('users' => $user->getId());
             }else{
                 return array($form);
             }
         }
     }
-
-
-//
-//        $user->setFirstName('saeed');
-//        $user->setLastName('Ahmed');
-//        $user->setPassword('123456');
-//        $user->setEmail('saeed.sas@gmail.com');
-//        $user->setAccountConfirmed(true);
-//
-//        $dm = $this->get('doctrine.odm.mongodb.document_manager');
-//
-//        $dm->persist($user);
-//        $dm->flush();
 
     protected function getForm($user = null)
     {
