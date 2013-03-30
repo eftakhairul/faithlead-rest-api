@@ -30,6 +30,7 @@ class User{
     /**
      * @MongoDB\String @MongoDB\Index(unique=true)
      * @Expose
+     * @Assert\NotBlank()
      * @Type("string")
      *
      */
@@ -38,6 +39,7 @@ class User{
     /**
      * @MongoDB\String
      * @Expose
+     * @Assert\NotBlank()
      * @Type("string")
      */
     protected $password;
@@ -52,6 +54,7 @@ class User{
 
     /**
      * @MongoDB\String
+     * @Assert\NotBlank()
      * @Expose
      * @Type("string")
      */
