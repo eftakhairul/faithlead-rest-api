@@ -30,11 +30,19 @@ class UserController extends FosRestController{
      * @View()
      * @ApiDoc()
      */
-    public function allAction()
+    public function getAction($id)
     {
-        $users = array('bim', 'bam', 'bingo');
 
-        return array('users' => $users);
+        $repository = $this->get('doctrine.odm.mongodb.document_manager')
+            ->getRepository('FaithleadRestBundle:User');
+        $user = $repository->findOneById($id);
+
+        return array('users' => array(
+            'id' => $user->getId(),
+            'First Name' => $user->getFirstName(),
+            'Last Name' => $user->getLastName(),
+            'email' => $user->getEmail()
+        ));
     }
 
     /**
