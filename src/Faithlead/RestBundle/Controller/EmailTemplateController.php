@@ -38,6 +38,8 @@ class EmailTemplateController extends FosRestController
         $emailTemplateRepository = $dm->getRepository('FaithleadRestBundle:EmailTemplate');
         $emailTemplateEntities     = $emailTemplateRepository->findAll();
 
+        if(count($emailTemplateEntities) > 0) return array('status' => 'success');
+
         $cnt = 0;
         foreach($emailTemplateEntities as $emailTemplateEntity)
         {

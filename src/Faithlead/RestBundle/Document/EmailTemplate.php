@@ -4,14 +4,13 @@
  * @author Eftakahirul Islam  <eftakhairul@gmail.com>
  * Copyright @ Faithlead
  */
-namespace Faithlead\Bundle\RestBundle\Document;
+namespace Faithlead\RestBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * @MongoDB\Document(collection="email_templates")
  */
-
 class EmailTemplate
 {
     /**
@@ -30,7 +29,7 @@ class EmailTemplate
     protected $subject;
 
     /**
-     * @ODM\Field(type="string")
+     * @MongoDB\Field(type="string")
      */
     protected $body;
 
@@ -176,14 +175,16 @@ class EmailTemplate
     /**
      * @MongoDB\PrePersist
      */
-    public function prePersistSetCreatedAt() {
+    public function prePersistSetCreatedAt()
+    {
         $this->createdAt = time();
     }
 
     /**
      * @MongoDB\PreUpdate
      */
-    public function preUpdateSetUpdatedAt() {
+    public function preUpdateSetUpdatedAt()
+    {
         $this->updatedAt = time();
     }
 }
