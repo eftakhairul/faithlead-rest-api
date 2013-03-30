@@ -17,3 +17,7 @@ faithlead_rest_homepage:
 user:
     type: rest
     resource: Faithlead\RestBundle\Controller\UserController
+
+emailtemplate:
+  type: rest
+  resource: Faithlead\RestBundle\Controller\EmailTemplateController
