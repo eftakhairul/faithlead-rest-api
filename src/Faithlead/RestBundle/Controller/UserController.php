@@ -87,6 +87,5 @@ class UserController extends FosRestController{
     {
         return $this->createForm(new UserType(), $user);
     }
-
 }
 
