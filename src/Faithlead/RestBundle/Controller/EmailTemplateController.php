@@ -111,7 +111,7 @@ class EmailTemplateController extends FosRestController
     }
 
     /**
-     * Create a new Email Template
+     * Create a new Email Template by User Id
      *
      * @param int $id
      * @return View view instance
