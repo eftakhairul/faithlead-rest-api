@@ -9,7 +9,9 @@ namespace Faithlead\RestBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * @MongoDB\Document(collection="email_templates")
+ * @MongoDB\Document(collection="email_templates",
+ *                   repositoryClass="Faithlead\RestBundle\Repository\EmailTemplateRepository"
+ * )
  */
 class EmailTemplate
 {

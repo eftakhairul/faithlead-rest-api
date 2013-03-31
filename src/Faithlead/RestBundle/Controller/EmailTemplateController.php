@@ -73,13 +73,14 @@ class EmailTemplateController extends FosRestController
      * @View()
      * @ApiDoc()
      */
-    public function countAction($id)
+    public function getCountAction($id)
     {
         if (empty($id)) return array('status' => false);
 
-        $data = array();
         $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
+        $emailTemplateRepository = $dm->getRepository('FaithleadRestBundle:EmailTemplate');
 
+        return array('count' => $emailTemplateRepository->countByUserId($id));
     }
 
     /**

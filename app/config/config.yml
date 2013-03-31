@@ -82,6 +82,7 @@ sensio_framework_extra:
     view:
         annotations: false
 
+#For Rest
 fos_rest:
     param_fetcher_listener: true
     body_listener: true
