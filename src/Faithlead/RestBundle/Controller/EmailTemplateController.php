@@ -29,19 +29,22 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 class EmailTemplateController extends FosRestController
 {
     /**
-     * Get the list of Email Templates
+     * Get the list of Email Templates by User Id
      *
+     * @param int $id
      * @return array data
      *
      * @View()
      * @ApiDoc()
      */
-    public function allAction()
+    public function getUserAction($id)
     {
+        if (empty($id)) return array('status' => false);
+
         $data = array();
         $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
         $emailTemplateRepository = $dm->getRepository('FaithleadRestBundle:EmailTemplate');
-        $emailTemplateEntities     = $emailTemplateRepository->findAll();
+        $emailTemplateEntities   = $emailTemplateRepository->findBy(array('user' => $id));
 
         $cnt = 0;
         foreach($emailTemplateEntities as $emailTemplateEntity)
@@ -51,6 +54,7 @@ class EmailTemplateController extends FosRestController
             'body'    => $emailTemplateEntity->getBody(),
             'period'  => $emailTemplateEntity->getPeriod(),
             'subject' => $emailTemplateEntity->getSubject(),
+            'user_id' => $emailTemplateEntity->getUser()->getId(),
             'success' => true
             );
 
@@ -58,6 +62,24 @@ class EmailTemplateController extends FosRestController
         }
 
         return $data;
+    }
+
+    /**
+     * Get total of  Email Templates by User Id
+     *
+     * @param int $id
+     * @return array data
+     *
+     * @View()
+     * @ApiDoc()
+     */
+    public function countAction($id)
+    {
+        if (empty($id)) return array('status' => false);
+
+        $data = array();
+        $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
+
     }
 
     /**
@@ -82,6 +104,7 @@ class EmailTemplateController extends FosRestController
             'body'    => $emailTemplateEntity->getBody(),
             'period'  => $emailTemplateEntity->getPeriod(),
             'subject' => $emailTemplateEntity->getSubject(),
+            'user_id' => $emailTemplateEntity->getUser()->getId(),
             'success' => true,
         );
     }
@@ -89,7 +112,7 @@ class EmailTemplateController extends FosRestController
     /**
      * Create a new Email Template
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param int $id
      * @return View view instance
      *
      * @View()
@@ -97,22 +120,29 @@ class EmailTemplateController extends FosRestController
      *      input="Faithlead\RestBundle\Form\Type\EmailTemplateType"
      * )
      */
-    public function postAction(Request $request)
+    public function postAction($id)
     {
+        if (empty($id)) return array('status' => false);
+
         $dm                  = $this->get('doctrine.odm.mongodb.document_manager');
         $emailTemplateEntity = new EmailTemplate();
         $form                = $this->getForm($emailTemplateEntity);
+        $request             = $this->getRequest();
 
         if ('POST' == $request->getMethod()) {
 
             $form->bind(array(
-                "body"      => $this->getRequest()->request->get('body'),
-                "period"    => $this->getRequest()->request->get('period'),
-                "subject"   => $this->getRequest()->request->get('subject'),
+                "body"      => $request->request->get('body'),
+                "period"    => $request->request->get('period'),
+                "subject"   => $request->request->get('subject'),
                 )
             );
 
             if ($form->isValid()) {
+                $userRepository = $dm->getRepository('FaithleadRestBundle:User');
+                $userEntity     = $userRepository->findOneById($id);
+
+                $emailTemplateEntity->setUser($userEntity);
                 $dm->persist($emailTemplateEntity);
                 $dm->flush();
 

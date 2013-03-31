@@ -19,12 +19,47 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
  * @RouteResource("User")
  */
 
-class UserController extends FosRestController{
+class UserController extends FosRestController
+{
+
+    /**
+     * Get the list of all User
+     *
+     * @return array data
+     *
+     * @View()
+     * @ApiDoc()
+     */
+    public function allAction()
+    {
+        $data = array();
+        $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
+        $userRepository          = $dm->getRepository('FaithleadRestBundle:User');
+        $userEntities            = $userRepository->findAll();
+
+        $cnt = 0;
+        foreach($userEntities as $userEntity)
+        {
+            $result = array(
+            'id'            => $userEntity->getId(),
+            'first_name'    => $userEntity->getFirstName(),
+            'last_name'     => $userEntity->getLastName(),
+            'email'         => $userEntity->getEmail(),
+            'success'       => true
+            );
+
+            $data[$cnt++] = $result;
+        }
+
+        return $data;
+    }
+
 
 
     /**
      * Get the list of users
      *
+     * @param int $id
      * @return array data
      *
      * @View()

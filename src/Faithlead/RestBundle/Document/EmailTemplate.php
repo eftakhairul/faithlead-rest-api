@@ -19,6 +19,11 @@ class EmailTemplate
     protected $id;
 
     /**
+     * @MongoDB\ReferenceOne(targetDocument="User", simple=true)
+     */
+    private $user;
+
+    /**
      * @MongoDB\Field(type="string")
      */
     protected $period;
@@ -68,6 +73,29 @@ class EmailTemplate
     public function getId()
     {
         return $this->id;
+    }
+
+
+    /**
+     * Set new user
+     *
+     * @param \Faithlead\RestBundle\Document\User $user
+     * @return $this
+     */
+    public function setUser(\Faithlead\RestBundle\Document\User $user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    /**
+     * Return the user
+     *
+     * @return \Faithlead\RestBundle\Document\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /**
