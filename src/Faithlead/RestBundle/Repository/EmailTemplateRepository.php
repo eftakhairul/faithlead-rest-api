@@ -24,7 +24,7 @@ class EmailTemplateRepository extends DocumentRepository
      */
     public function countByUserId($userId)
     {
-        if (empty($id)) return false;
+        if (empty($userId)) return 0;
 
 //        FIXME: Have to write function query builder
         $total = $this->findBy(array('user' => $userId));
