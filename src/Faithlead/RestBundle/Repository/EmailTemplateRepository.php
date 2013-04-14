@@ -26,8 +26,12 @@ class EmailTemplateRepository extends DocumentRepository
     {
         if (empty($userId)) return 0;
 
-//        FIXME: Have to write function query builder
-        $total = $this->findBy(array('user' => $userId));
-        return empty($total)? 0 : count($total);
+        $total = $this->createQueryBuilder('e')
+                      ->field('user')->equals($userId)
+                      ->getQuery()
+                      ->execute()
+                      ->count();
+
+        return empty($total)? 0 : $total;
     }
 }

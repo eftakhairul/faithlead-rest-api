@@ -8,7 +8,6 @@
  */
 namespace Faithlead\RestBundle\Controller;
 
-use Faithlead\RestBundle\Form\Type\EmailTemplateType;
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,7 +18,9 @@ use FOS\RestBundle\Controller\Annotations\View,
     FOS\RestBundle\Controller\Annotations\RouteResource;
 
 use Faithlead\RestBundle\Document\User,
-    Faithlead\RestBundle\Document\EmailTemplate;
+    Faithlead\RestBundle\Document\EmailHistory;
+    Faithlead\RestBundle\Document\Tag;
+
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
@@ -51,13 +52,12 @@ class EmailHistoryController extends FosRestController
         $cnt = 0;
         foreach($emailHistoryEntities as $emailHistoryEntity)
         {
-            $result = array(
-            'id'      => $emailHistoryEntity->getId(),
-            'subject' => $emailHistoryEntity->getSubject(),
-            'user_id' => $emailHistoryEntity->getUser()->getId(),
-            'status'  => $emailHistoryEntity->getStatus(),
-            'success' => true
-            );
+            $result = array('id'      => $emailHistoryEntity->getId(),
+                            'subject' => $emailHistoryEntity->getSubject(),
+                            'user_id' => $emailHistoryEntity->getUser()->getId(),
+                            'status'  => $emailHistoryEntity->getStatus(),
+                            'success' => true
+                            );
 
             $data[$cnt++] = $result;
         }
@@ -102,14 +102,13 @@ class EmailHistoryController extends FosRestController
 
         if (empty($emailHistoryEntity)) return array('status' => false);
 
-        return array(
-            'id'      => $emailHistoryEntity->getId(),
-            'period'  => $emailHistoryEntity->getPeriod(),
-            'subject' => $emailHistoryEntity->getSubject(),
-            'user_id' => $emailHistoryEntity->getUser()->getId(),
-            'status'  => $emailHistoryEntity->getStatus(),
-            'success' => true,
-        );
+        return array('id'      => $emailHistoryEntity->getId(),
+                    'period'  => $emailHistoryEntity->getPeriod(),
+                    'subject' => $emailHistoryEntity->getSubject(),
+                    'user_id' => $emailHistoryEntity->getUser()->getId(),
+                    'status'  => $emailHistoryEntity->getStatus(),
+                    'success' => true
+                );
     }
 
     /**
@@ -128,16 +127,16 @@ class EmailHistoryController extends FosRestController
         if (empty($userId)) return array('status' => false);
 
         $dm                  = $this->get('doctrine.odm.mongodb.document_manager');
-        $emailTemplateEntity = new EmailTemplate();
-        $form                = $this->getForm($emailTemplateEntity);
+        $emailHistoryEntity = new EmailHistory();
+        $form                = $this->getForm($emailHistoryEntity);
         $request             = $this->getRequest();
 
         if ('POST' == $request->getMethod()) {
 
             $form->bind(array(
-                "body"      => $request->request->get('body'),
-                "period"    => $request->request->get('period'),
-                "subject"   => $request->request->get('subject'),
+                "status"          => $request->request->get('body'),
+                "subject"         => $request->request->get('subject'),
+                "email_address"   => $request->request->get('email_address'),
                 )
             );
 
@@ -145,11 +144,14 @@ class EmailHistoryController extends FosRestController
                 $userRepository = $dm->getRepository('FaithleadRestBundle:User');
                 $userEntity     = $userRepository->findOneById($userId);
 
-                $emailTemplateEntity->setUser($userEntity);
-                $dm->persist($emailTemplateEntity);
+                $tags = explode(',', $request->request->get('tags'));
+                foreach($tags as $key => $tag) $emailHistoryEntity->setOneTag(new Tag($tag));
+
+                $emailHistoryEntity->setUser($userEntity);
+                $dm->persist($emailHistoryEntity);
                 $dm->flush();
 
-                return array('id' => $emailTemplateEntity->getId(), 'status' => 'success');
+                return array('id' => $$emailHistoryEntity->getId(), 'status' => 'success');
             } else {
                 return array($form);
             }
@@ -170,12 +172,12 @@ class EmailHistoryController extends FosRestController
     public function deleteAction($id)
     {
         $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
-        $emailTemplateRepository = $dm->getRepository('FaithleadRestBundle:EmailTemplate');
-        $emailTemplateEntity     = $emailTemplateRepository->findOneById($id);
+        $emailHistoryRepository  = $dm->getRepository('FaithleadRestBundle:EmailHistory');
+        $emailHistoryEntity      = $emailHistoryRepository->findOneById($id);
 
-        if (empty($emailTemplateEntity)) return array('status' => false);
+        if (empty($emailHistoryEntity)) return array('status' => false);
 
-        $dm->remove($emailTemplateEntity);
+        $dm->remove($emailHistoryEntity);
         $dm->flush();
 
         return array('status' => 'success');
@@ -194,16 +196,16 @@ class EmailHistoryController extends FosRestController
     {
 
         $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
-        $emailTemplateRepository = $dm->getRepository('FaithleadRestBundle:EmailTemplate');
-        $emailTemplateEntity     = $emailTemplateRepository->findOneById($id);
+        $emailHistoryRepository  = $dm->getRepository('FaithleadRestBundle:EmailHistory');
+        $emailHistoryEntity      = $emailHistoryRepository->findOneById($id);
 
-        if (empty($emailTemplateEntity)) array('status' => false);
+        if (empty($emailHistoryEntity)) array('status' => false);
 
-        $emailTemplateEntity->setBody($this->getRequest()->request->get('body'));
-        $emailTemplateEntity->setPeriod($this->getRequest()->request->get('period'));
-        $emailTemplateEntity->setSubject($this->getRequest()->request->get('subject'));
+//        $emailHistoryEntity->setBody($this->getRequest()->request->get('subject'));
+//        $emailHistoryEntity->setPeriod($this->getRequest()->request->get('ema'));
+//        $emailHistoryEntity->setSubject($this->getRequest()->request->get('subject'));
 
-        $dm->persist($emailTemplateEntity);
+        $dm->persist($emailHistoryEntity);
         $dm->flush();
 
         return array('status' => 'success');
@@ -212,11 +214,11 @@ class EmailHistoryController extends FosRestController
     /**
      * Return a form
      *
-     * @param null $emailTemplateEntity
+     * @param null $emailHistoryEntity
      * @return \Symfony\Component\Form\Form
      */
-    protected function getForm($emailTemplateEntity = null)
+    protected function getForm($emailHistoryEntity = null)
     {
-        return $this->createForm(new EmailTemplateType(), $emailTemplateEntity);
+        return $this->createForm(new EmailHistoryType(), $emailHistoryEntity);
     }
 }

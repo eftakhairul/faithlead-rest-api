@@ -28,7 +28,7 @@ class Tag
     /**
      * @param String $tag
      */
-    public function __construct($tag)
+    public function __construct($tag = null)
     {
         $this->tag = $tag;
     }
