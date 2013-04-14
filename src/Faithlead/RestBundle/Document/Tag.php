@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Embed Tag
+ * EmbeddedDocument Tag
  *
  * @author Eftakahirul Islam  <eftakhairul@gmail.com>
  * Copyright @ Faithlead
@@ -20,4 +20,32 @@ use JMS\Serializer\Annotation\Type;
  */
 class Tag
 {
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $tag;
+
+    /**
+     * @param String $tag
+     */
+    public function __construct($tag)
+    {
+        $this->tag = $tag;
+    }
+
+    /**
+     * @param $tag
+     */
+    public function setTag($tag)
+    {
+        $this->tag = $tag;
+    }
+
+    /**
+     * @return String
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
 }
