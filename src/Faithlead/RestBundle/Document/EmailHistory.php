@@ -13,7 +13,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * @MongoDB\Document(collection="email_histories",
- *                   repositoryClass="Faithlead\RestBundle\Repository\EmailHisotryRepository"
+ *                   repositoryClass="Faithlead\RestBundle\Repository\EmailHistoryRepository"
  * )
  */
 class EmailHisotry
@@ -118,9 +118,19 @@ class EmailHisotry
      * @param $tag
      * @return $this
      */
-    public function setTag($tag)
+    public function setOneTag( $tag)
     {
-        $this->tag = $tag;
+        $this->tag->add($tag);
+        return $this;
+    }
+
+    /**
+     * @param $tags
+     * @return $this
+     */
+    public function setTag(ArrayCollection $tags)
+    {
+        $this->tag = $tags;
         return $this;
     }
 
