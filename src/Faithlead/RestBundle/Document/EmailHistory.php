@@ -16,7 +16,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  *                   repositoryClass="Faithlead\RestBundle\Repository\EmailHistoryRepository"
  * )
  */
-class EmailHisotry
+class EmailHistory
 {
     /**
      * @MongoDB\Id

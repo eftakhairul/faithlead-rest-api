@@ -112,6 +112,50 @@ class EmailHistoryController extends FosRestController
         );
     }
 
+    /**
+     * Create a new Email Template by User Id
+     *
+     * @param int $userId
+     * @return View view instance
+     *
+     * @View()
+     * @ApiDoc(
+     *      input="Faithlead\RestBundle\Form\Type\EmailTemplateType"
+     * )
+     */
+    public function postAction($userId)
+    {
+        if (empty($userId)) return array('status' => false);
+
+        $dm                  = $this->get('doctrine.odm.mongodb.document_manager');
+        $emailTemplateEntity = new EmailTemplate();
+        $form                = $this->getForm($emailTemplateEntity);
+        $request             = $this->getRequest();
+
+        if ('POST' == $request->getMethod()) {
+
+            $form->bind(array(
+                "body"      => $request->request->get('body'),
+                "period"    => $request->request->get('period'),
+                "subject"   => $request->request->get('subject'),
+                )
+            );
+
+            if ($form->isValid()) {
+                $userRepository = $dm->getRepository('FaithleadRestBundle:User');
+                $userEntity     = $userRepository->findOneById($userId);
+
+                $emailTemplateEntity->setUser($userEntity);
+                $dm->persist($emailTemplateEntity);
+                $dm->flush();
+
+                return array('id' => $emailTemplateEntity->getId(), 'status' => 'success');
+            } else {
+                return array($form);
+            }
+        }
+    }
+
 
 
     /**
