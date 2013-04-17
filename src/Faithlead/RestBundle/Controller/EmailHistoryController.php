@@ -18,8 +18,9 @@ use FOS\RestBundle\Controller\Annotations\View,
     FOS\RestBundle\Controller\Annotations\RouteResource;
 
 use Faithlead\RestBundle\Document\User,
-    Faithlead\RestBundle\Document\EmailHistory;
-    Faithlead\RestBundle\Document\Tag;
+    Faithlead\RestBundle\Document\EmailHistory,
+    Faithlead\RestBundle\Document\Tag,
+    Faithlead\RestBundle\Form\Type\EmailHistoryType;
 
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -52,11 +53,13 @@ class EmailHistoryController extends FosRestController
         $cnt = 0;
         foreach($emailHistoryEntities as $emailHistoryEntity)
         {
-            $result = array('id'      => $emailHistoryEntity->getId(),
-                            'subject' => $emailHistoryEntity->getSubject(),
-                            'user_id' => $emailHistoryEntity->getUser()->getId(),
-                            'status'  => $emailHistoryEntity->getStatus(),
-                            'success' => true
+            $result = array('id'           => $emailHistoryEntity->getId(),
+                            'subject'      => $emailHistoryEntity->getSubject(),
+                            'user_id'      => $emailHistoryEntity->getUser()->getId(),
+                            'status'       => $emailHistoryEntity->getStatus(),
+                            'tags'         => $emailHistoryEntity->getTag()->getValues(),
+                            'email_addess' => $emailHistoryEntity->getEmailAddress(),
+                            'success'      => true
                             );
 
             $data[$cnt++] = $result;
@@ -86,7 +89,7 @@ class EmailHistoryController extends FosRestController
     }
 
     /**
-     * Get the details of Email Template by Id
+     * Get the details of Email History by Id
      *
      * @param int $id
      * @return array data
@@ -102,24 +105,25 @@ class EmailHistoryController extends FosRestController
 
         if (empty($emailHistoryEntity)) return array('status' => false);
 
-        return array('id'      => $emailHistoryEntity->getId(),
-                    'period'  => $emailHistoryEntity->getPeriod(),
-                    'subject' => $emailHistoryEntity->getSubject(),
-                    'user_id' => $emailHistoryEntity->getUser()->getId(),
-                    'status'  => $emailHistoryEntity->getStatus(),
-                    'success' => true
+        return array('id'           => $emailHistoryEntity->getId(),
+                    'subject'       => $emailHistoryEntity->getSubject(),
+                    'user_id'       => $emailHistoryEntity->getUser()->getId(),
+                    'email_address' => $emailHistoryEntity->getEmailAddress(),
+                    'status'        => $emailHistoryEntity->getStatus(),
+                    'tags'          => $emailHistoryEntity->getTag()->getValues(),
+                    'success'       => true
                 );
     }
 
     /**
-     * Create a new Email Template by User Id
+     * Create a new Email History by User Id
      *
      * @param int $userId
      * @return View view instance
      *
      * @View()
      * @ApiDoc(
-     *      input="Faithlead\RestBundle\Form\Type\EmailTemplateType"
+     *      input="Faithlead\RestBundle\Form\Type\EmailHistoryType"
      * )
      */
     public function postAction($userId)
@@ -144,14 +148,14 @@ class EmailHistoryController extends FosRestController
                 $userRepository = $dm->getRepository('FaithleadRestBundle:User');
                 $userEntity     = $userRepository->findOneById($userId);
 
-                $tags = explode(',', $request->request->get('tags'));
+                $tags = explode(',', $request->request->get('tags', array()));
                 foreach($tags as $key => $tag) $emailHistoryEntity->setOneTag(new Tag($tag));
 
                 $emailHistoryEntity->setUser($userEntity);
                 $dm->persist($emailHistoryEntity);
                 $dm->flush();
 
-                return array('id' => $$emailHistoryEntity->getId(), 'status' => 'success');
+                return array('id' => $emailHistoryEntity->getId(), 'status' => 'success');
             } else {
                 return array($form);
             }
@@ -184,7 +188,7 @@ class EmailHistoryController extends FosRestController
     }
 
     /**
-     * Update an Email Template
+     * Update an Email History by Id
      *
      * @param int $id
      * @return View view instance
@@ -201,9 +205,12 @@ class EmailHistoryController extends FosRestController
 
         if (empty($emailHistoryEntity)) array('status' => false);
 
-//        $emailHistoryEntity->setBody($this->getRequest()->request->get('subject'));
-//        $emailHistoryEntity->setPeriod($this->getRequest()->request->get('ema'));
-//        $emailHistoryEntity->setSubject($this->getRequest()->request->get('subject'));
+        $emailHistoryEntity->setSubject($this->getRequest()->request->get('subject'));
+        $emailHistoryEntity->setStatus($this->getRequest()->request->get('status'));
+        $emailHistoryEntity->setEmailAddress($this->getRequest()->request->get('email_address'));
+
+        $tags = explode(',', $this->getRequest()->request->get('tags', array()));
+        foreach($tags as $key => $tag) $emailHistoryEntity->setOneTag(new Tag($tag));
 
         $dm->persist($emailHistoryEntity);
         $dm->flush();

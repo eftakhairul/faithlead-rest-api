@@ -120,7 +120,7 @@ class EmailHistory
      */
     public function setOneTag( $tag)
     {
-        $this->tag->add($tag);
+        $this->tag[] = $tag;
         return $this;
     }
 

@@ -21,3 +21,6 @@ user:
 emailtemplate:
   type: rest
   resource: Faithlead\RestBundle\Controller\EmailTemplateController
+emailhistory:
+  type: rest
+  resource: Faithlead\RestBundle\Controller\EmailHistoryController

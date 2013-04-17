@@ -178,7 +178,7 @@ class EmailTemplateController extends FosRestController
     }
 
     /**
-     * Update an Email Template
+     * Update an Email Template by Id
      *
      * @param int $id
      * @return View view instance
