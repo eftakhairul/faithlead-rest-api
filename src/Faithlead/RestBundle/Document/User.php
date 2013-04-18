@@ -50,7 +50,7 @@ class User{
      * @Expose
      * @Type("string")
      */
-    public $firstName;
+    protected $firstName;
 
     /**
      * @MongoDB\String
