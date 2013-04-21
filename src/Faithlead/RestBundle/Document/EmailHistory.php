@@ -49,6 +49,11 @@ class EmailHistory
     protected $tag;
 
     /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $orderId;
+
+    /**
      * @MongoDB\Date
      */
     protected $createdAt;
@@ -158,6 +163,28 @@ class EmailHistory
     public function getSubject()
     {
         return $this->subject;
+    }
+
+    /**
+     * Set the order id
+     *
+     * @param $orderId
+     * @return $this
+     */
+    public function setOrderId($orderId)
+    {
+        $this->orderId = $orderId;
+        return $this;
+    }
+
+    /**
+     * Return the order id
+     *
+     * @return mixed
+     */
+    public function getOrderId()
+    {
+        return $this->orderId;
     }
 
     /**
