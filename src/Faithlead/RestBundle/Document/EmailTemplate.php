@@ -8,6 +8,10 @@ namespace Faithlead\RestBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
+use JMS\Serializer\Annotation\Expose,
+    JMS\Serializer\Annotation\Type;
+
+
 /**
  * @MongoDB\Document(collection="email_templates",
  *                   repositoryClass="Faithlead\RestBundle\Repository\EmailTemplateRepository"
@@ -17,6 +21,8 @@ class EmailTemplate
 {
     /**
      * @MongoDB\Id
+     * @Expose
+     * @Type("string")
      */
     protected $id;
 
