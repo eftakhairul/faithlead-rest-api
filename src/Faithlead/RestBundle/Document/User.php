@@ -23,40 +23,33 @@ class User{
 
     /**
      * @MongoDB\id
+     * @Expose
+     * @Type("string")
      */
     protected $id;
 
     
     /**
      * @MongoDB\String @MongoDB\Index(unique=true)
-     * @Expose
      * @Assert\NotBlank()
-     * @Type("string")
-     *
      */
     protected $email;
 
     /**
      * @MongoDB\String
-     * @Expose
      * @Assert\NotBlank()
-     * @Type("string")
      */
     protected $password;
 
     /**
      * @MongoDB\String
      * @Assert\NotBlank()
-     * @Expose
-     * @Type("string")
      */
     protected $firstName;
 
     /**
      * @MongoDB\String
      * @Assert\NotBlank()
-     * @Expose
-     * @Type("string")
      */
     protected $lastName;
 

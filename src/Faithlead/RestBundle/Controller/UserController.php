@@ -85,7 +85,7 @@ class UserController extends FosRestController
      * @ApiDoc(
      *      description="Register new user account.",
      *      input="Faithlead\RestBundle\Form\Type\UserType",
-     *      output="Faithlead\RestBundle\Enum\User",
+     *      output="Faithlead\RestBundle\Document\User",
      *      statusCodes={
      *         200="Returned when successful and return created User Id"
      *     }
