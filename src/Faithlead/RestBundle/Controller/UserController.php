@@ -87,7 +87,8 @@ class UserController extends FosRestController
      *      input="Faithlead\RestBundle\Form\Type\UserType",
      *      output="Faithlead\RestBundle\Document\User",
      *      statusCodes={
-     *         200="Returned when successful and return created User Id"
+     *         200="Returned when successful and return created User Id",
+     *         404="ERROR message"
      *     }
      *
      * )
