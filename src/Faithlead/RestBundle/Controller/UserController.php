@@ -28,7 +28,15 @@ class UserController extends FosRestController
      * @return array data
      *
      * @View()
-     * @ApiDoc()
+     * @ApiDoc(
+     *      description="Get user details",
+     *      output="Faithlead\RestBundle\Document\User",
+     *      statusCodes={
+     *         200="OK - Returned when successful and return created User Id",
+     *         404="ERROR message"
+     *     }
+     *
+     * )
      */
     public function allAction()
     {
@@ -63,7 +71,15 @@ class UserController extends FosRestController
      * @return array data
      *
      * @View()
-     * @ApiDoc()
+     * @ApiDoc(
+     *      description="Get user details by user id",
+     *      output="Faithlead\RestBundle\Document\User",
+     *      statusCodes={
+     *         200="OK - Returned when successful and return created User Id",
+     *         404="ERROR message"
+     *     }
+     *
+     * )
      */
     public function getAction($id)
     {
@@ -87,7 +103,7 @@ class UserController extends FosRestController
      *      input="Faithlead\RestBundle\Form\Type\UserType",
      *      output="Faithlead\RestBundle\Document\User",
      *      statusCodes={
-     *         200="Returned when successful and return created User Id",
+     *         200="OK - Returned when successful and return created User Id",
      *         404="ERROR message"
      *     }
      *
