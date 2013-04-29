@@ -99,6 +99,21 @@ class User{
      * @param string $email
      * @return \User
      */
+
+    public function _construct()
+    {
+
+    }
+
+    /**
+     * Override __toString() method to return the name of the user
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return $this->id;
+    }
+
     public function setEmail($email)
     {
         $this->email = $email;

@@ -268,4 +268,29 @@ class EmailHistory
     {
         $this->updatedAt = time();
     }
+
+    public function __construct()
+    {
+        $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add tag
+     *
+     * @param Faithlead\RestBundle\Document\Tag $tag
+     */
+    public function addTag(\Faithlead\RestBundle\Document\Tag $tag)
+    {
+        $this->tag[] = $tag;
+    }
+
+    /**
+    * Remove tag
+    *
+    * @param <variableType$tag
+    */
+    public function removeTag(\Faithlead\RestBundle\Document\Tag $tag)
+    {
+        $this->tag->removeElement($tag);
+    }
 }
