@@ -1,16 +1,14 @@
 <?php
 
 /**
+ * All About Email Template
+ *
  * @author Eftakahirul Islam  <eftakhairul@gmail.com>
  * Copyright @ Faithlead
  */
 namespace Faithlead\RestBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-
-use JMS\Serializer\Annotation\Expose,
-    JMS\Serializer\Annotation\Type;
-
 
 /**
  * @MongoDB\Document(collection="email_templates",
@@ -21,31 +19,18 @@ class EmailTemplate
 {
     /**
      * @MongoDB\Id
-     * @Expose
-     * @Type("string")
      */
     protected $id;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="User", simple=true)
-     */
-    private $user;
-
-    /**
      * @MongoDB\Field(type="string")
      */
-    protected $period;
-
-    /**
-     * @MongoDB\Field(type="string")
-     */
-    protected $subject;
+    protected $name;
 
     /**
      * @MongoDB\Field(type="string")
      */
     protected $body;
-
 
     /**
      * @MongoDB\Date
@@ -57,9 +42,36 @@ class EmailTemplate
      */
     protected $updatedAt;
 
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param $name
+     * @return \Faithlead\RestBundle\Document\EmailTemplate
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
     /**
      * @param $body
-     * @return $this
+     * @return \Faithlead\RestBundle\Document\EmailTemplate
      */
     public function setBody($body)
     {
@@ -76,77 +88,10 @@ class EmailTemplate
     }
 
     /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-
-    /**
-     * Set new user
-     *
-     * @param \Faithlead\RestBundle\Document\User $user
-     * @return $this
-     */
-    public function setUser(\Faithlead\RestBundle\Document\User $user)
-    {
-        $this->user = $user;
-        return $this;
-    }
-
-    /**
-     * Return the user
-     *
-     * @return \Faithlead\RestBundle\Document\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param $period
-     * @return $this
-     */
-    public function setPeriod($period)
-    {
-        $this->period = $period;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPeriod()
-    {
-        return $this->period;
-    }
-
-    /**
-     * @param $subject
-     * @return $this
-     */
-    public function setSubject($subject)
-    {
-        $this->subject = $subject;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSubject()
-    {
-        return $this->subject;
-    }
-
-    /**
      * Set createdAt
      *
      * @param date $createdAt
-     * @return \User
+     * @return \Faithlead\RestBundle\Document\EmailTemplate
      */
     public function setCreatedAt($createdAt)
     {
@@ -168,7 +113,7 @@ class EmailTemplate
      * Set updatedAt
      *
      * @param date $updatedAt
-     * @return \User
+     * @return \Faithlead\RestBundle\Document\EmailTemplate
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -184,28 +129,6 @@ class EmailTemplate
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * Set status
-     *
-     * @param boolean $status
-     * @return \User
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-        return $this;
-    }
-
-    /**
-     * Get the status
-     *
-     * @return boolean $status
-     */
-    public function getStatus()
-    {
-        return $this->status;
     }
 
     /**
