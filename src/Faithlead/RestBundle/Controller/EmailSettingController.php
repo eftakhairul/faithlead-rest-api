@@ -138,8 +138,8 @@ class EmailSettingController extends FosRestController
     public function postAction()
     {
         $dm                  = $this->get('doctrine.odm.mongodb.document_manager');
-        $emailTemplateEntity = new EmailTemplate();
-        $form                = $this->getForm($emailTemplateEntity);
+        $emailSettingEntity = new EmailSetting();
+        $form                = $this->getForm($emailSettingEntity);
         $request             = $this->getRequest();
 
         if ('POST' == $request->getMethod()) {
@@ -165,8 +165,13 @@ class EmailSettingController extends FosRestController
                 if (empty($userEntity)) return new Response('user not found.', 404);
                 if (empty($emailTemplateEntity)) return new Response('email template not found.', 404);
 
-                $emailTemplateEntity->setUser($userEntity);
-                $dm->persist($emailTemplateEntity);
+                if ($request->request->get('template_id')) {
+                    $emailSettingEntity->setUser(true);
+                }
+
+                $emailSettingEntity->setUser($userEntity);
+                $emailSettingEntity->setEmailTemplate($emailTemplateEntity);
+                $dm->persist($emailSettingEntity);
                 $dm->flush();
 
                 return array('id' => $emailTemplateEntity->getId());
@@ -191,12 +196,12 @@ class EmailSettingController extends FosRestController
     public function deleteAction($id)
     {
         $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
-        $emailTemplateRepository = $dm->getRepository('FaithleadRestBundle:EmailTemplate');
-        $emailTemplateEntity     = $emailTemplateRepository->findOneById($id);
+        $emailSettingRepository  = $dm->getRepository('FaithleadRestBundle:EmailSetting');
+        $emailSettingEntity      = $emailSettingRepository->findOneById($id);
 
-        if (empty($emailTemplateEntity)) return new Response('Id not found.', 404);
+        if (empty($emailSettingEntity)) return new Response('Id not found.', 404);
 
-        $dm->remove($emailTemplateEntity);
+        $dm->remove($emailSettingEntity);
         $dm->flush();
 
         return new Response('success', 200);
@@ -236,11 +241,11 @@ class EmailSettingController extends FosRestController
     /**
      * Return a form
      *
-     * @param null $emailTemplateEntity
+     * @param null $emailSettingEntity
      * @return \Symfony\Component\Form\Form
      */
-    protected function getForm($emailTemplateEntity = null)
+    protected function getForm($emailSettingEntity = null)
     {
-        return $this->createForm(new EmailTemplateType(), $emailTemplateEntity);
+        return $this->createForm(new EmailSettingType(), $emailSettingEntity);
     }
 }
