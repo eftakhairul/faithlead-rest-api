@@ -6,6 +6,10 @@ emailtemplate:
   type: rest
   resource: Faithlead\RestBundle\Controller\EmailTemplateController
 
+emailsetting:
+  type: rest
+  resource: Faithlead\RestBundle\Controller\EmailSettingController
+
 emailhistory:
   type: rest
   resource: Faithlead\RestBundle\Controller\EmailHistoryController
