@@ -1,0 +1,1 @@
+server 'qa.okaydoit.com', :app, :web, :primary => true

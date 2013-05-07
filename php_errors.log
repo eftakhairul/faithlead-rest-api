@@ -76,3 +76,13 @@
 [26-Mar-2013 19:29:14 UTC] PHP   5. Symfony\Component\HttpKernel\Kernel->boot() /Users/user/Sites/faithlead/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Console/Application.php:83
 [26-Mar-2013 19:29:14 UTC] PHP   6. Symfony\Component\HttpKernel\Kernel->initializeBundles() /Users/user/Sites/faithlead/app/bootstrap.php.cache:377
 [26-Mar-2013 19:29:14 UTC] PHP   7. AppKernel->registerBundles() /Users/user/Sites/faithlead/app/bootstrap.php.cache:543
+[30-Mar-2013 18:15:32 UTC] PHP Warning:  require(/Users/user/Sites/faithlead/app/../vendor/autoload.php): failed to open stream: No such file or directory in /Users/user/Sites/faithlead/app/autoload.php on line 5
+[30-Mar-2013 18:15:32 UTC] PHP Stack trace:
+[30-Mar-2013 18:15:32 UTC] PHP   1. {main}() /Users/user/Sites/faithlead/app/console:0
+[30-Mar-2013 18:15:32 UTC] PHP   2. require_once() /Users/user/Sites/faithlead/app/console:10
+[30-Mar-2013 18:15:32 UTC] PHP   3. require_once() /Users/user/Sites/faithlead/app/bootstrap.php.cache:3
+[30-Mar-2013 18:15:32 UTC] PHP Fatal error:  require(): Failed opening required '/Users/user/Sites/faithlead/app/../vendor/autoload.php' (include_path='.:') in /Users/user/Sites/faithlead/app/autoload.php on line 5
+[30-Mar-2013 18:15:32 UTC] PHP Stack trace:
+[30-Mar-2013 18:15:32 UTC] PHP   1. {main}() /Users/user/Sites/faithlead/app/console:0
+[30-Mar-2013 18:15:32 UTC] PHP   2. require_once() /Users/user/Sites/faithlead/app/console:10
+[30-Mar-2013 18:15:32 UTC] PHP   3. require_once() /Users/user/Sites/faithlead/app/bootstrap.php.cache:3

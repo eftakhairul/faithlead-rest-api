@@ -16,6 +16,7 @@ use JMS\Serializer\Annotation\Type;
 
 /**
  * @MongoDB\Document(collection="users")
+ *
  * @ExclusionPolicy("all")
  */
 
@@ -23,24 +24,28 @@ class User{
 
     /**
      * @MongoDB\id
+     * @Expose
+     * @Type("string")
      */
     protected $id;
 
     
     /**
-     * @MongoDB\String @MongoDB\Index(unique=true)
-     * @Expose
+     * @MongoDB\String
+     * @MongoDB\Index(unique=true)
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
      * @Assert\NotBlank()
+     * @Expose
      * @Type("string")
-     *
      */
     protected $email;
 
     /**
      * @MongoDB\String
-     * @Expose
      * @Assert\NotBlank()
-     * @Type("string")
      */
     protected $password;
 
@@ -50,7 +55,7 @@ class User{
      * @Expose
      * @Type("string")
      */
-    public $firstName;
+    protected $firstName;
 
     /**
      * @MongoDB\String
@@ -63,6 +68,8 @@ class User{
     /**
      * @MongoDB\String
      * One of 'guest', 'user', 'system'
+     * @Expose
+     * @Type("string")
      */
     protected $role = 'user';
 
@@ -92,6 +99,21 @@ class User{
      * @param string $email
      * @return \User
      */
+
+    public function _construct()
+    {
+
+    }
+
+    /**
+     * Override __toString() method to return the name of the user
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return $this->id;
+    }
+
     public function setEmail($email)
     {
         $this->email = $email;

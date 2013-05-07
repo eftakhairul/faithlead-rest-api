@@ -1,28 +1,25 @@
 <?php
 
 /**
+ * Email History
+ *
  * @author Eftakahirul Islam  <eftakhairul@gmail.com>
  * Copyright @ Faithlead
  */
 namespace Faithlead\RestBundle\Document;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
-use JMS\Serializer\Annotation\Expose,
-    JMS\Serializer\Annotation\Type;
-
-
 /**
- * @MongoDB\Document(collection="email_templates",
- *                   repositoryClass="Faithlead\RestBundle\Repository\EmailTemplateRepository"
+ * @MongoDB\Document(collection="email_histories",
+ *                   repositoryClass="Faithlead\RestBundle\Repository\EmailHistoryRepository"
  * )
  */
-class EmailTemplate
+class EmailHistory
 {
     /**
      * @MongoDB\Id
-     * @Expose
-     * @Type("string")
      */
     protected $id;
 
@@ -34,7 +31,7 @@ class EmailTemplate
     /**
      * @MongoDB\Field(type="string")
      */
-    protected $period;
+    protected $emailAddress;
 
     /**
      * @MongoDB\Field(type="string")
@@ -42,10 +39,19 @@ class EmailTemplate
     protected $subject;
 
     /**
+     * @MongoDB\Field(type="int")
+     */
+    protected $status;
+
+    /**
+     * @MongoDB\EmbedMany(targetDocument="Tag")
+     */
+    protected $tag;
+
+    /**
      * @MongoDB\Field(type="string")
      */
-    protected $body;
-
+    protected $orderId;
 
     /**
      * @MongoDB\Date
@@ -58,21 +64,11 @@ class EmailTemplate
     protected $updatedAt;
 
     /**
-     * @param $body
-     * @return $this
+     * initlizing data
      */
-    public function setBody($body)
+    public function __contact()
     {
-        $this->body = $body;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getBody()
-    {
-        return $this->body;
+        $this->tag = new ArrayCollection();
     }
 
     /**
@@ -82,7 +78,6 @@ class EmailTemplate
     {
         return $this->id;
     }
-
 
     /**
      * Set new user
@@ -107,21 +102,49 @@ class EmailTemplate
     }
 
     /**
-     * @param $period
+     * @param $emailAddress
      * @return $this
      */
-    public function setPeriod($period)
+    public function setEmailAddress($emailAddress)
     {
-        $this->period = $period;
+        $this->emailAddress = $emailAddress;
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getPeriod()
+    public function getEmailAddress()
     {
-        return $this->period;
+        return $this->emailAddress;
+    }
+
+    /**
+     * @param $tag
+     * @return $this
+     */
+    public function setOneTag( $tag)
+    {
+        $this->tag[] = $tag;
+        return $this;
+    }
+
+    /**
+     * @param $tags
+     * @return $this
+     */
+    public function setTag(ArrayCollection $tags)
+    {
+        $this->tag = $tags;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTag()
+    {
+        return $this->tag;
     }
 
     /**
@@ -140,6 +163,28 @@ class EmailTemplate
     public function getSubject()
     {
         return $this->subject;
+    }
+
+    /**
+     * Set the order id
+     *
+     * @param $orderId
+     * @return $this
+     */
+    public function setOrderId($orderId)
+    {
+        $this->orderId = $orderId;
+        return $this;
+    }
+
+    /**
+     * Return the order id
+     *
+     * @return mixed
+     */
+    public function getOrderId()
+    {
+        return $this->orderId;
     }
 
     /**
@@ -222,5 +267,30 @@ class EmailTemplate
     public function preUpdateSetUpdatedAt()
     {
         $this->updatedAt = time();
+    }
+
+    public function __construct()
+    {
+        $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add tag
+     *
+     * @param Faithlead\RestBundle\Document\Tag $tag
+     */
+    public function addTag(\Faithlead\RestBundle\Document\Tag $tag)
+    {
+        $this->tag[] = $tag;
+    }
+
+    /**
+    * Remove tag
+    *
+    * @param <variableType$tag
+    */
+    public function removeTag(\Faithlead\RestBundle\Document\Tag $tag)
+    {
+        $this->tag->removeElement($tag);
     }
 }
