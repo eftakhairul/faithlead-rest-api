@@ -35,7 +35,7 @@ class EmailSetting
     /**
      * @MongoDB\Boolean
      */
-    protected $isActive = false;
+    protected $isActive;
 
     /**
      * @MongoDB\Field(type="string")
@@ -56,6 +56,14 @@ class EmailSetting
      * @MongoDB\Date
      */
     protected $updatedAt;
+
+    /**
+     * initializing data
+     */
+    public function __contact()
+    {
+        $this->isActive = false;
+    }
 
     /**
      * @return mixed

@@ -7,6 +7,8 @@
 namespace Faithlead\RestBundle\Controller;
 
 use Faithlead\RestBundle\Form\Type\EmailTemplateType;
+use Faithlead\RestBundle\Form\Type\EmailSettingType;
+
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,7 +19,8 @@ use FOS\RestBundle\Controller\Annotations\View,
     FOS\RestBundle\Controller\Annotations\RouteResource;
 
 use Faithlead\RestBundle\Document\User,
-    Faithlead\RestBundle\Document\EmailTemplate;
+    Faithlead\RestBundle\Document\EmailTemplate,
+    Faithlead\RestBundle\Document\EmailSetting;;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
@@ -29,7 +32,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 class EmailSettingController extends FosRestController
 {
     /**
-     * Get the list of Email Templates by User Id
+     * Get the list of Email Settings by User Id
      *
      * @param int $userId
      * @return array data
@@ -53,11 +56,12 @@ class EmailSettingController extends FosRestController
         foreach($emailTemplateEntities as $emailTemplateEntity)
         {
             $result = array(
-            'id'      => $emailTemplateEntity->getId(),
-            'body'    => $emailTemplateEntity->getBody(),
-            'period'  => $emailTemplateEntity->getPeriod(),
-            'subject' => $emailTemplateEntity->getSubject(),
-            'user_id' => $emailTemplateEntity->getUser()->getId()
+            'id'            => $emailTemplateEntity->getId(),
+            'period'        => $emailTemplateEntity->getPeriod(),
+            'subject'       => $emailTemplateEntity->getSubject(),
+            'user_id'       => $emailTemplateEntity->getUser()->getId(),
+            'is_active'     => $emailTemplateEntity->getIsActive(),
+            'template_name' => $emailTemplateEntity->getEmailTemplate()->getName()
             );
 
             $data[$cnt++] = $result;
@@ -67,7 +71,7 @@ class EmailSettingController extends FosRestController
     }
 
     /**
-     * Get total of  Email Templates by User Id
+     * Get total of  Email Settings by User Id
      *
      * @param int $userId
      * @return array data
@@ -109,18 +113,18 @@ class EmailSettingController extends FosRestController
         if (empty($emailTemplateEntity)) return new Response('Id not found', 404);
 
         return array(
-            'id'      => $emailTemplateEntity->getId(),
-            'body'    => $emailTemplateEntity->getBody(),
-            'period'  => $emailTemplateEntity->getPeriod(),
-            'subject' => $emailTemplateEntity->getSubject(),
-            'user_id' => $emailTemplateEntity->getUser()->getId()
+            'id'            => $emailTemplateEntity->getId(),
+            'is_active'     => $emailTemplateEntity->getIsActive(),
+            'period'        => $emailTemplateEntity->getPeriod(),
+            'subject'       => $emailTemplateEntity->getSubject(),
+            'template_name' => $emailTemplateEntity->getEmailTemplate()->getName(),
+            'user_id'       => $emailTemplateEntity->getUser()->getId()
         );
     }
 
     /**
-     * Create a new Email Template by User Id
+     * Create a new Email Template by User Id and Template Id
      *
-     * @param int $userId
      * @return View view instance
      *
      * @View()
@@ -131,10 +135,8 @@ class EmailSettingController extends FosRestController
      *         input="Faithlead\RestBundle\Form\Type\EmailTemplateType"
      * )
      */
-    public function postAction($userId)
+    public function postAction()
     {
-        if (empty($userId)) return new Response('user not found.', 404);
-
         $dm                  = $this->get('doctrine.odm.mongodb.document_manager');
         $emailTemplateEntity = new EmailTemplate();
         $form                = $this->getForm($emailTemplateEntity);
@@ -143,17 +145,25 @@ class EmailSettingController extends FosRestController
         if ('POST' == $request->getMethod()) {
 
             $form->bind(array(
-                "body"      => $request->request->get('body'),
                 "period"    => $request->request->get('period'),
                 "subject"   => $request->request->get('subject'),
                 )
             );
 
+            $userId     = $request->request->get('user_id');
+            $templateId =  $request->request->get('template_id');
+
+            if (empty($userId) OR empty($templateId)) return new Response('user not found.', 404);
+
             if ($form->isValid()) {
-                $userRepository = $dm->getRepository('FaithleadRestBundle:User');
-                $userEntity     = $userRepository->findOneById($userId);
+
+                $userRepository          = $dm->getRepository('FaithleadRestBundle:User');
+                $emailTemplateRepository = $dm->getRepository('FaithleadRestBundle:EmialTemplate');
+                $userEntity              = $userRepository->findOneById($userId);
+                $emailTemplateEntity     = $emailTemplateRepository->findOneById($templateId);
 
                 if (empty($userEntity)) return new Response('user not found.', 404);
+                if (empty($emailTemplateEntity)) return new Response('email template not found.', 404);
 
                 $emailTemplateEntity->setUser($userEntity);
                 $dm->persist($emailTemplateEntity);

@@ -64,7 +64,7 @@ class EmailHistory
     protected $updatedAt;
 
     /**
-     * initlizing data
+     * initializing data
      */
     public function __contact()
     {

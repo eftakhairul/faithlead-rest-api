@@ -10,15 +10,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class EmailTemplateType extends AbstractType
+class EmailSettingType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('subject', 'text');
-        $builder->add('period', 'text');
+        $builder->add('body', 'text');
+        $builder->add('name', 'text');
     }
 
     /**
@@ -27,7 +27,7 @@ class EmailTemplateType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'        => 'Faithlead\RestBundle\Document\EmailTemplate',
+            'data_class'        => 'Faithlead\RestBundle\Document\EmailSetting',
             'csrf_protection'   => false,
         ));
     }
@@ -37,6 +37,6 @@ class EmailTemplateType extends AbstractType
      */
     public function getName()
     {
-        return 'emailtemaplate';
+        return 'emailsetting';
     }
 }
