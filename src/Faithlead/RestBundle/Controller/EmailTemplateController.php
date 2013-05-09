@@ -46,7 +46,7 @@ class EmailTemplateController extends FosRestController
         $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
         $emailTemplateRepository = $dm->getRepository('FaithleadRestBundle:EmailTemplate');
 
-        return array('count' => $emailTemplateRepository->countByUserId($userId));
+        return array('count' => $emailTemplateRepository->findCount());
     }
 
     /**

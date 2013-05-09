@@ -19,15 +19,13 @@ class EmailTemplateRepository extends DocumentRepository
     /**
      * Return count of email templates by user id
      *
-     * @param $userId
      * @return bool|int
      */
-    public function countByUserId($userId)
+    public function findCount()
     {
         if (empty($userId)) return 0;
 
         $total = $this->createQueryBuilder('e')
-                      ->field('user')->equals($userId)
                       ->getQuery()
                       ->execute()
                       ->count();
