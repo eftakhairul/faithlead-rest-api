@@ -153,14 +153,15 @@ class EmailSettingController extends FosRestController
             );
 
             $userId     = $request->request->get('user_id');
-            $templateId =  $request->request->get('template_id');
+            $templateId = $request->request->get('template_id');
+
 
             if (empty($userId) OR empty($templateId)) return new Response('user not found.', 404);
 
             if ($form->isValid()) {
 
                 $userRepository          = $dm->getRepository('FaithleadRestBundle:User');
-                $emailTemplateRepository = $dm->getRepository('FaithleadRestBundle:EmialTemplate');
+                $emailTemplateRepository = $dm->getRepository('FaithleadRestBundle:EmailTemplate');
                 $userEntity              = $userRepository->findOneById($userId);
                 $emailTemplateEntity     = $emailTemplateRepository->findOneById($templateId);
 

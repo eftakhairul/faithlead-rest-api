@@ -41,8 +41,6 @@ class EmailTemplateController extends FosRestController
      */
     public function getCountAction()
     {
-        if (empty($userId)) return new Response('user not found', 404);
-
         $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
         $emailTemplateRepository = $dm->getRepository('FaithleadRestBundle:EmailTemplate');
 
@@ -90,8 +88,6 @@ class EmailTemplateController extends FosRestController
      */
     public function postAction()
     {
-        if (empty($userId)) return new Response('user not found.', 404);
-
         $dm                  = $this->get('doctrine.odm.mongodb.document_manager');
         $emailTemplateEntity = new EmailTemplate();
         $form                = $this->getForm($emailTemplateEntity);

@@ -23,8 +23,6 @@ class EmailTemplateRepository extends DocumentRepository
      */
     public function findCount()
     {
-        if (empty($userId)) return 0;
-
         $total = $this->createQueryBuilder('e')
                       ->getQuery()
                       ->execute()

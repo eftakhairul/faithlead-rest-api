@@ -17,8 +17,8 @@ class EmailSettingType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('body', 'text');
-        $builder->add('name', 'text');
+        $builder->add('subject', 'text');
+        $builder->add('period', 'text');
         $builder->add('user_id', 'text');
         $builder->add('template_id', 'text');
     }
