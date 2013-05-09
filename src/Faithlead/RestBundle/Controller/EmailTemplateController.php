@@ -174,7 +174,7 @@ class EmailTemplateController extends FosRestController
     }
 
     /**
-     * Return a form
+     * Return a email template form
      *
      * @param null $emailTemplateEntity
      * @return \Symfony\Component\Form\Form

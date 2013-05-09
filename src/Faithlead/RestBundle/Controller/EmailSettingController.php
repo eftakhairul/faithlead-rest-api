@@ -244,7 +244,7 @@ class EmailSettingController extends FosRestController
     }
 
     /**
-     * Return a form
+     * Return a email setting form
      *
      * @param null $emailSettingEntity
      * @return \Symfony\Component\Form\Form

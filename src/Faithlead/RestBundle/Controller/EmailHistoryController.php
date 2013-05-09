@@ -162,8 +162,6 @@ class EmailHistoryController extends FosRestController
         }
     }
 
-
-
     /**
      * Delete the specific Email history by Id
      *
@@ -219,7 +217,7 @@ class EmailHistoryController extends FosRestController
     }
 
     /**
-     * Return a form
+     * Return a email history form
      *
      * @param null $emailHistoryEntity
      * @return \Symfony\Component\Form\Form
