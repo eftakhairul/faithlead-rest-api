@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Controller for email setting
+ *
  * @author Eftakahirul Islam  <eftakhairul@gmail.com>
  * Copyright @ Faithlead
  */
@@ -38,9 +40,9 @@ class EmailSettingController extends FosRestController
      * @return array data
      *
      * @View()
-     * @ApiDoc(statusCodes={ 200="array of all email template (id, body, period, subject, user_id)",
+     * @ApiDoc(statusCodes={ 200="array of all email template (id, template_name, period, subject, user_id)",
      *                       404="Returned when user id found"},
-     *         description="Get the list of Email Templates by User Id"
+     *         description="Get the list of Email Setting by User Id"
      * )
      */
     public function getUserAction($userId)
@@ -49,19 +51,19 @@ class EmailSettingController extends FosRestController
 
         $data = array();
         $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
-        $emailTemplateRepository = $dm->getRepository('FaithleadRestBundle:EmailTemplate');
-        $emailTemplateEntities   = $emailTemplateRepository->findBy(array('user' => $userId));
+        $emailSettingRepository  = $dm->getRepository('FaithleadRestBundle:EmailSetting');
+        $emailSettingEntities    = $emailSettingRepository->findBy(array('user' => $userId));
 
         $cnt = 0;
-        foreach($emailTemplateEntities as $emailTemplateEntity)
+        foreach($emailSettingEntities as $emailSettingEntity)
         {
             $result = array(
-            'id'            => $emailTemplateEntity->getId(),
-            'period'        => $emailTemplateEntity->getPeriod(),
-            'subject'       => $emailTemplateEntity->getSubject(),
-            'user_id'       => $emailTemplateEntity->getUser()->getId(),
-            'is_active'     => $emailTemplateEntity->getIsActive(),
-            'template_name' => $emailTemplateEntity->getEmailTemplate()->getName()
+            'id'            => $emailSettingEntity->getId(),
+            'period'        => $emailSettingEntity->getPeriod(),
+            'subject'       => $emailSettingEntity->getSubject(),
+            'user_id'       => $emailSettingEntity->getUser()->getId(),
+            'is_active'     => $emailSettingEntity->getIsActive(),
+            'template_name' => $emailSettingEntity->getEmailTemplate()->getName()
             );
 
             $data[$cnt++] = $result;
@@ -79,7 +81,7 @@ class EmailSettingController extends FosRestController
      * @View()
      * @ApiDoc(statusCodes={ 200="count",
      *                       404="Returned when user id found"},
-     *         description="Get total of  Email Templates by User Id"
+     *         description="Get total of  Email Setting by User Id"
      * )
      */
     public function getCountAction($userId)
@@ -87,13 +89,13 @@ class EmailSettingController extends FosRestController
         if (empty($userId)) return new Response('user not found', 404);
 
         $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
-        $emailTemplateRepository = $dm->getRepository('FaithleadRestBundle:EmailTemplate');
+        $emailSettingRepository  = $dm->getRepository('FaithleadRestBundle:EmailSetting');
 
-        return array('count' => $emailTemplateRepository->countByUserId($userId));
+        return array('count' => $emailSettingRepository->countByUserId($userId));
     }
 
     /**
-     * Get the details of Email Template by Id
+     * Get the details of an Email Setting by Id
      *
      * @param int $id
      * @return array data
@@ -101,24 +103,24 @@ class EmailSettingController extends FosRestController
      * @View()
      * @ApiDoc(statusCodes={ 200="array (id, body, period, subject, user_id)",
      *                       404="Returned when user id found"},
-     *         description="Get the details of Email Template by Id"
+     *         description="Get the details of Email Setting by Id"
      * )
      */
     public function getAction($id)
     {
         $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
-        $emailTemplateRepository = $dm->getRepository('FaithleadRestBundle:EmailTemplate');
-        $emailTemplateEntity     = $emailTemplateRepository->findOneById($id);
+        $emailSettingRepository  = $dm->getRepository('FaithleadRestBundle:EmailSetting');
+        $emailSettingEntity     = $emailSettingRepository->findOneById($id);
 
-        if (empty($emailTemplateEntity)) return new Response('Id not found', 404);
+        if (empty($emailSettingEntity)) return new Response('Id not found', 404);
 
         return array(
-            'id'            => $emailTemplateEntity->getId(),
-            'is_active'     => $emailTemplateEntity->getIsActive(),
-            'period'        => $emailTemplateEntity->getPeriod(),
-            'subject'       => $emailTemplateEntity->getSubject(),
-            'template_name' => $emailTemplateEntity->getEmailTemplate()->getName(),
-            'user_id'       => $emailTemplateEntity->getUser()->getId()
+            'id'            => $emailSettingEntity->getId(),
+            'is_active'     => $emailSettingEntity->getIsActive(),
+            'period'        => $emailSettingEntity->getPeriod(),
+            'subject'       => $emailSettingEntity->getSubject(),
+            'template_name' => $emailSettingEntity->getEmailTemplate()->getName(),
+            'user_id'       => $emailSettingEntity->getUser()->getId()
         );
     }
 
@@ -129,10 +131,10 @@ class EmailSettingController extends FosRestController
      *
      * @View()
      * @ApiDoc(statusCodes={ 200="Returned when successful",
-     *                       404="Returned when user id found"},
-     *         description="Create a new Email Template by User Id",
-     *         output="Faithlead\RestBundle\Document\EmailTemplate",
-     *         input="Faithlead\RestBundle\Form\Type\EmailTemplateType"
+     *                       404="Returned when user id or template id not found"},
+     *         description="Create a new Email Template by User Id and Email Template Id",
+     *         output="Faithlead\RestBundle\Document\EmailSetting",
+     *         input="Faithlead\RestBundle\Form\Type\EmailSettingType"
      * )
      */
     public function postAction()
@@ -165,8 +167,8 @@ class EmailSettingController extends FosRestController
                 if (empty($userEntity)) return new Response('user not found.', 404);
                 if (empty($emailTemplateEntity)) return new Response('email template not found.', 404);
 
-                if ($request->request->get('template_id')) {
-                    $emailSettingEntity->setUser(true);
+                if ($request->request->get('is_active')) {
+                    $emailSettingEntity->setIsActive(true);
                 }
 
                 $emailSettingEntity->setUser($userEntity);
@@ -182,7 +184,7 @@ class EmailSettingController extends FosRestController
     }
 
     /**
-     * Delete the specific Email Template by Id
+     * Delete the specific Email Setting by Id
      *
      * @param int $id
      * @return View view instance
@@ -190,7 +192,7 @@ class EmailSettingController extends FosRestController
      * @View()
      * @ApiDoc(statusCodes={ 200="Returned when successful",
      *                       404="Returned when Id not found"},
-     *         description="Delete the specific Email Template by Id"
+     *         description="Delete the specific Email Setting by Id"
      * )
      */
     public function deleteAction($id)
@@ -208,7 +210,7 @@ class EmailSettingController extends FosRestController
     }
 
     /**
-     * Update an Email Template by Id
+     * Update an Email Setting by Id
      *
      * @param int $id
      * @return View view instance
@@ -216,23 +218,26 @@ class EmailSettingController extends FosRestController
      * @View()
      * @ApiDoc(statusCodes={ 200="Returned when successful",
      *                       404="Returned when Id not found"},
-     *         description="Update an Email Template by Id"
+     *         description="Update an Email Setting by Id"
      * )
      */
     public function putAction($id)
     {
 
         $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
-        $emailTemplateRepository = $dm->getRepository('FaithleadRestBundle:EmailTemplate');
-        $emailTemplateEntity     = $emailTemplateRepository->findOneById($id);
+        $emailSettingRepository = $dm->getRepository('FaithleadRestBundle:EmailSetting');
+        $emailSettingEntity     = $emailSettingRepository->findOneById($id);
 
-        if (empty($emailTemplateEntity)) return new Response('id not found.', 404);
+        if (empty($emailSettingEntity)) return new Response('id not found.', 404);
 
-        $emailTemplateEntity->setBody($this->getRequest()->request->get('body'));
-        $emailTemplateEntity->setPeriod($this->getRequest()->request->get('period'));
-        $emailTemplateEntity->setSubject($this->getRequest()->request->get('subject'));
+        $emailSettingEntity->setPeriod($this->getRequest()->request->get('period'));
+        $emailSettingEntity->setSubject($this->getRequest()->request->get('subject'));
 
-        $dm->persist($emailTemplateEntity);
+        if ($this->getRequest()->request->get('subject')) {
+            $emailSettingEntity->setIsActive(true);
+        }
+
+        $dm->persist($emailSettingEntity);
         $dm->flush();
 
         return new Response('success', 200);

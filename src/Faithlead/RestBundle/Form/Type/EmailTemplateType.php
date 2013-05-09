@@ -17,8 +17,8 @@ class EmailTemplateType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('subject', 'text');
-        $builder->add('period', 'text');
+        $builder->add('body', 'text');
+        $builder->add('name', 'text');
     }
 
     /**

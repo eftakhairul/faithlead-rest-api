@@ -28,57 +28,18 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
  */
 class EmailTemplateController extends FosRestController
 {
+
     /**
-     * Get the list of Email Templates by User Id
+     * Get total of  Email Templates
      *
-     * @param int $userId
      * @return array data
      *
      * @View()
-     * @ApiDoc(statusCodes={ 200="array of all email template (id, body, period, subject, user_id)",
-     *                       404="Returned when user id found"},
-     *         description="Get the list of Email Templates by User Id"
+     * @ApiDoc(statusCodes={200="count"},
+     *         description="Get total of  Email Templates"
      * )
      */
-    public function getUserAction($userId)
-    {
-        if (empty($userId)) return new Response('user not found', 404);
-
-        $data = array();
-        $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
-        $emailTemplateRepository = $dm->getRepository('FaithleadRestBundle:EmailTemplate');
-        $emailTemplateEntities   = $emailTemplateRepository->findBy(array('user' => $userId));
-
-        $cnt = 0;
-        foreach($emailTemplateEntities as $emailTemplateEntity)
-        {
-            $result = array(
-            'id'      => $emailTemplateEntity->getId(),
-            'body'    => $emailTemplateEntity->getBody(),
-            'period'  => $emailTemplateEntity->getPeriod(),
-            'subject' => $emailTemplateEntity->getSubject(),
-            'user_id' => $emailTemplateEntity->getUser()->getId()
-            );
-
-            $data[$cnt++] = $result;
-        }
-
-        return $data;
-    }
-
-    /**
-     * Get total of  Email Templates by User Id
-     *
-     * @param int $userId
-     * @return array data
-     *
-     * @View()
-     * @ApiDoc(statusCodes={ 200="count",
-     *                       404="Returned when user id found"},
-     *         description="Get total of  Email Templates by User Id"
-     * )
-     */
-    public function getCountAction($userId)
+    public function getCountAction()
     {
         if (empty($userId)) return new Response('user not found', 404);
 
@@ -111,27 +72,23 @@ class EmailTemplateController extends FosRestController
         return array(
             'id'      => $emailTemplateEntity->getId(),
             'body'    => $emailTemplateEntity->getBody(),
-            'period'  => $emailTemplateEntity->getPeriod(),
-            'subject' => $emailTemplateEntity->getSubject(),
-            'user_id' => $emailTemplateEntity->getUser()->getId()
+            'name'    => $emailTemplateEntity->getName()
         );
     }
 
     /**
-     * Create a new Email Template by User Id
+     * Create a new Email Template
      *
-     * @param int $userId
      * @return View view instance
      *
      * @View()
-     * @ApiDoc(statusCodes={ 200="Returned when successful",
-     *                       404="Returned when user id found"},
-     *         description="Create a new Email Template by User Id",
+     * @ApiDoc(statusCodes={ 200="Returned when successful"},
+     *         description="Create a new Email Template",
      *         output="Faithlead\RestBundle\Document\EmailTemplate",
      *         input="Faithlead\RestBundle\Form\Type\EmailTemplateType"
      * )
      */
-    public function postAction($userId)
+    public function postAction()
     {
         if (empty($userId)) return new Response('user not found.', 404);
 
@@ -144,18 +101,12 @@ class EmailTemplateController extends FosRestController
 
             $form->bind(array(
                 "body"      => $request->request->get('body'),
-                "period"    => $request->request->get('period'),
-                "subject"   => $request->request->get('subject'),
+                "name"      => $request->request->get('name')
                 )
             );
 
             if ($form->isValid()) {
-                $userRepository = $dm->getRepository('FaithleadRestBundle:User');
-                $userEntity     = $userRepository->findOneById($userId);
 
-                if (empty($userEntity)) return new Response('user not found.', 404);
-
-                $emailTemplateEntity->setUser($userEntity);
                 $dm->persist($emailTemplateEntity);
                 $dm->flush();
 
@@ -214,8 +165,7 @@ class EmailTemplateController extends FosRestController
         if (empty($emailTemplateEntity)) return new Response('id not found.', 404);
 
         $emailTemplateEntity->setBody($this->getRequest()->request->get('body'));
-        $emailTemplateEntity->setPeriod($this->getRequest()->request->get('period'));
-        $emailTemplateEntity->setSubject($this->getRequest()->request->get('subject'));
+        $emailTemplateEntity->setName($this->getRequest()->request->get('name'));
 
         $dm->persist($emailTemplateEntity);
         $dm->flush();

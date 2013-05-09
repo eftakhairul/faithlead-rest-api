@@ -165,7 +165,7 @@ class EmailHistoryController extends FosRestController
 
 
     /**
-     * Delete the specific Email Template by Id
+     * Delete the specific Email history by Id
      *
      * @param int $id
      * @return array data
