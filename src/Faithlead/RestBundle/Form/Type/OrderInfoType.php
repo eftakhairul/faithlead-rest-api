@@ -4,7 +4,6 @@ namespace Faithlead\RestBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Faithlead\RestBundle\Form\DataTransformer\UserToIdTransformer;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class OrderInfoType extends AbstractType{
@@ -18,7 +17,6 @@ class OrderInfoType extends AbstractType{
         $builder->add('customerName', 'text');
         $builder->add('customerEmail', 'text');
         $builder->add('orderId', 'text');
-
         $builder->add('user');
     }
 

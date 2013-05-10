@@ -41,7 +41,7 @@ class OrderInfo
      * @MongoDB\String
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email.",
-     *     checkMX = true
+     *     checkMX = false
      * )
      * @Assert\NotBlank()
      * @Expose

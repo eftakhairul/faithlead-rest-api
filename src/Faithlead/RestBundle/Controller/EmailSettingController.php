@@ -140,45 +140,28 @@ class EmailSettingController extends FosRestController
     public function postAction()
     {
         $dm                  = $this->get('doctrine.odm.mongodb.document_manager');
-        $emailSettingEntity = new EmailSetting();
+        $emailSettingEntity  = new EmailSetting();
         $form                = $this->getForm($emailSettingEntity);
         $request             = $this->getRequest();
 
         if ('POST' == $request->getMethod()) {
 
             $form->bind(array(
-                "period"    => $request->request->get('period'),
-                "subject"   => $request->request->get('subject'),
+                    "period"        => $request->request->get('period'),
+                    "subject"       => $request->request->get('subject'),
+                    'user'          => $request->request->get('user'),
+                    'emailTemplate' => $request->request->get('emailTemplate'),
                 )
             );
 
-            $userId     = $request->request->get('user_id');
-            $templateId = $request->request->get('template_id');
-
-
-            if (empty($userId) OR empty($templateId)) return new Response('user not found.', 404);
-
             if ($form->isValid()) {
-
-                $userRepository          = $dm->getRepository('FaithleadRestBundle:User');
-                $emailTemplateRepository = $dm->getRepository('FaithleadRestBundle:EmailTemplate');
-                $userEntity              = $userRepository->findOneById($userId);
-                $emailTemplateEntity     = $emailTemplateRepository->findOneById($templateId);
-
-                if (empty($userEntity)) return new Response('user not found.', 404);
-                if (empty($emailTemplateEntity)) return new Response('email template not found.', 404);
-
-                if ($request->request->get('is_active')) {
-                    $emailSettingEntity->setIsActive(true);
-                }
-
-                $emailSettingEntity->setUser($userEntity);
-                $emailSettingEntity->setEmailTemplate($emailTemplateEntity);
+                /*
+                 * @todo Check is user and email template exists or not
+                */
                 $dm->persist($emailSettingEntity);
                 $dm->flush();
-
-                return array('id' => $emailTemplateEntity->getId());
-            } else {
+                return array('email_settings' => $emailSettingEntity->getId());
+            }else{
                 return array($form);
             }
         }

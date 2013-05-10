@@ -114,13 +114,6 @@ class User{
      */
     protected $status = true;
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return \User
-     */
-
     public function _construct()
     {
 
@@ -134,6 +127,13 @@ class User{
     {
         return $this->id;
     }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return \User
+     */
 
     public function setEmail($email)
     {

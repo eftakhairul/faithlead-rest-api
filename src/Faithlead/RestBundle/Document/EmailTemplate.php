@@ -9,16 +9,24 @@
 namespace Faithlead\RestBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @MongoDB\Document(collection="email_templates",
  *                   repositoryClass="Faithlead\RestBundle\Repository\EmailTemplateRepository"
  * )
+ *@ExclusionPolicy("all")
  */
 class EmailTemplate
 {
     /**
-     * @MongoDB\Id
+     * @MongoDB\id
+     * @Expose
+     * @Type("string")
      */
     protected $id;
 
@@ -41,6 +49,20 @@ class EmailTemplate
      * @MongoDB\Date
      */
     protected $updatedAt;
+
+    public function _construct()
+    {
+
+    }
+
+    /**
+     * Override __toString() method to return the name of the user
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return $this->id;
+    }
 
 
     /**

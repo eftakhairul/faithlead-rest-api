@@ -19,8 +19,8 @@ class EmailSettingType extends AbstractType
     {
         $builder->add('subject', 'text');
         $builder->add('period', 'text');
-        $builder->add('user_id', 'text');
-        $builder->add('template_id', 'text');
+        $builder->add('user');
+        $builder->add('emailTemplate');
     }
 
     /**

@@ -25,12 +25,12 @@ class EmailSetting
     /**
      * @MongoDB\ReferenceOne(targetDocument="User", simple=true)
      */
-    private $user;
+    protected $user;
 
     /**
      * @MongoDB\ReferenceOne(targetDocument="EmailTemplate", simple=true)
      */
-    private $emailTemplate;
+    protected $emailTemplate;
 
     /**
      * @MongoDB\Boolean
