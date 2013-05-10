@@ -35,7 +35,7 @@ class User{
      * @MongoDB\Index(unique=true)
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email.",
-     *     checkMX = true
+     *     checkMX = false
      * )
      * @Assert\NotBlank()
      * @Expose
@@ -64,6 +64,27 @@ class User{
      * @Type("string")
      */
     protected $lastName;
+
+    /**
+     * @MongoDB\String
+     */
+    protected $company;
+
+    /**
+     * @MongoDB\String
+     * @Assert\NotBlank()
+     * @Expose
+     * @Type("string")
+     */
+    protected $website;
+
+    /**
+     * @MongoDB\String
+     * @Assert\NotBlank()
+     * @Expose
+     * @Type("string")
+     */
+    protected $phone;
 
     /**
      * @MongoDB\String
@@ -324,5 +345,71 @@ class User{
     /** @MongoDB\PreUpdate */
     public function preUpdateSetUpdatedAt() {
         $this->updatedAt = time();
+    }
+
+    /**
+     * Set company
+     *
+     * @param string $company
+     * @return \User
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return string $company
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     * @return \User
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string $website
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return \User
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string $phone
+     */
+    public function getPhone()
+    {
+        return $this->phone;
     }
 }

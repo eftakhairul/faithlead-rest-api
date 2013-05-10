@@ -90,9 +90,12 @@ class UserController extends FosRestController
 
         return array('users' => array(
             'id' => $user->getId(),
-            'First Name' => $user->getFirstName(),
-            'Last Name' => $user->getLastName(),
-            'email' => $user->getEmail()
+            'firstName' => $user->getFirstName(),
+            'lastName' => $user->getLastName(),
+            'email' => $user->getEmail(),
+            'eompany' => $user->getCompany(),
+            'websiteUrl' => $user->getWebsite(),
+            'phone' => $user->getPhone()
         ));
     }
 
@@ -124,6 +127,9 @@ class UserController extends FosRestController
                 "lastName" => $this->getRequest()->request->get('lastName'),
                 "email" => $this->getRequest()->request->get('email'),
                 "password" => $this->getRequest()->request->get('password'),
+                "company" => $this->getRequest()->request->get('company'),
+                "website" => $this->getRequest()->request->get('website'),
+                "phone" => $this->getRequest()->request->get('phone'),
                 )
             );
             if ($form->isValid()) {
