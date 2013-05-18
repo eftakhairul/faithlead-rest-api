@@ -24,6 +24,8 @@ use JMS\Serializer\Annotation\Type;
 class EmailTemplate
 {
     /**
+     * Primary Id of email template
+     *
      * @MongoDB\id
      * @Expose
      * @Type("string")
@@ -31,17 +33,27 @@ class EmailTemplate
     protected $id;
 
     /**
+     * Name of email template
+     *
      * @MongoDB\Field(type="string")
+     * @Expose
+     * @Type("string")
      */
     protected $name;
 
     /**
+     * It can be string or html
+     *
      * @MongoDB\Field(type="string")
+     * @Expose
+     * @Type("string")
      */
     protected $body;
 
     /**
      * @MongoDB\Date
+     * @Expose
+     * @Type("string")
      */
     protected $createdAt;
 
