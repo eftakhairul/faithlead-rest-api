@@ -16,9 +16,13 @@ class EmailParserController
     {
         $message = \Swift_Message::newInstance()
             ->setSubject('Hello Email')
-            ->setFrom('no-reply@faithlead.net')
+            ->setFrom('No-Reply@faithlead.net')
             ->setTo('saeed.sas@gmail.com')
-            ->setBody('hello email parser')
+            ->setBody(
+                $this->renderView(
+                    'FaithleadRestBundle:index:email.txt.twig',
+                    array('name' => 'Saeed')
+                )
             )
         ;
         $this->get('mailer')->send($message);
