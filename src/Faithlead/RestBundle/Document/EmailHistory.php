@@ -10,6 +10,9 @@ namespace Faithlead\RestBundle\Document;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @MongoDB\Document(collection="email_histories",
@@ -19,27 +22,45 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 class EmailHistory
 {
     /**
+     * Primary Id of Email History
+     *
      * @MongoDB\Id
+     * @Expose
+     * @Type("integer")
      */
     protected $id;
 
     /**
+     * It will return associated user id
+     *
      * @MongoDB\ReferenceOne(targetDocument="User", simple=true)
+     * @Expose
+     * @Type("integer")
      */
     private $user;
 
     /**
+     * email address
+     *
      * @MongoDB\Field(type="string")
+     * @Expose
+     * @Type("string")
      */
     protected $emailAddress;
 
     /**
+     * subject
+     *
      * @MongoDB\Field(type="string")
+     * @Expose
+     * @Type("string")
      */
     protected $subject;
 
     /**
      * @MongoDB\Field(type="int")
+     * @Expose
+     * @Type("integer")
      */
     protected $status;
 
@@ -50,6 +71,7 @@ class EmailHistory
 
     /**
      * @MongoDB\Field(type="string")
+     *
      */
     protected $orderId;
 

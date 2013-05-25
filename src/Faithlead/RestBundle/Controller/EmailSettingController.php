@@ -22,7 +22,7 @@ use FOS\RestBundle\Controller\Annotations\View,
 
 use Faithlead\RestBundle\Document\User,
     Faithlead\RestBundle\Document\EmailTemplate,
-    Faithlead\RestBundle\Document\EmailSetting;;
+    Faithlead\RestBundle\Document\EmailSetting;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
@@ -40,9 +40,10 @@ class EmailSettingController extends FosRestController
      * @return array data
      *
      * @View()
-     * @ApiDoc(statusCodes={ 200="array of all email template (id, template_name, period, subject, user_id)",
+     * @ApiDoc(statusCodes={ 200="Return when success",
      *                       404="Returned when user id found"},
-     *         description="Get the list of Email Setting by User Id"
+     *         description="Get the list (array) of Email Setting by User Id",
+     *         output="Faithlead\RestBundle\Document\EmailSetting"
      * )
      */
     public function getUserAction($userId)
@@ -63,7 +64,8 @@ class EmailSettingController extends FosRestController
             'subject'       => $emailSettingEntity->getSubject(),
             'user_id'       => $emailSettingEntity->getUser()->getId(),
             'is_active'     => $emailSettingEntity->getIsActive(),
-            'template_name' => $emailSettingEntity->getEmailTemplate()->getName()
+            'template_name' => $emailSettingEntity->getEmailTemplate()->getName(),
+            'create_date'   => $emailSettingEntity->getCreatedAt
             );
 
             $data[$cnt++] = $result;
@@ -103,7 +105,8 @@ class EmailSettingController extends FosRestController
      * @View()
      * @ApiDoc(statusCodes={ 200="array (id, body, period, subject, user_id)",
      *                       404="Returned when user id found"},
-     *         description="Get the details of Email Setting by Id"
+     *         description="Get the details of Email Setting by Id",
+     *         output="Faithlead\RestBundle\Document\EmailSetting"
      * )
      */
     public function getAction($id)
@@ -120,7 +123,8 @@ class EmailSettingController extends FosRestController
             'period'        => $emailSettingEntity->getPeriod(),
             'subject'       => $emailSettingEntity->getSubject(),
             'template_name' => $emailSettingEntity->getEmailTemplate()->getName(),
-            'user_id'       => $emailSettingEntity->getUser()->getId()
+            'user_id'       => $emailSettingEntity->getUser()->getId(),
+            'create_date'   => $emailSettingEntity->getCreatedAt
         );
     }
 

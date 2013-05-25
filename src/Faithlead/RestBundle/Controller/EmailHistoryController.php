@@ -39,11 +39,14 @@ class EmailHistoryController extends FosRestController
      * @return array data
      *
      * @View()
-     * @ApiDoc()
+     * @ApiDoc(statusCodes={200="Returned when successful",
+     *                      404="Returned when user id found"},
+     *         output="Faithlead\RestBundle\Document\EmailHistory"
+     * )
      */
     public function getUserAction($userId)
     {
-        if (empty($userId)) return array('status' => false);
+        if (empty($userId)) return new Response('user not found', 404);
 
         $data = array();
         $dm                     = $this->get('doctrine.odm.mongodb.document_manager');
@@ -79,7 +82,7 @@ class EmailHistoryController extends FosRestController
      */
     public function getCountAction($userId)
     {
-        if (empty($userId)) return array('status' => false);
+        if (empty($userId)) return new Response('user not found', 404);
 
         $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
         $emailHistoryRepository = $dm->getRepository('FaithleadRestBundle:EmailHistory');
@@ -95,7 +98,10 @@ class EmailHistoryController extends FosRestController
      * @return array data
      *
      * @View()
-     * @ApiDoc()
+     * @ApiDoc(statusCodes={200="Returned when successful",
+     *                      404="Returned when id found"},
+     *         output="Faithlead\RestBundle\Document\EmailHistory"
+     * )
      */
     public function getAction($id)
     {
@@ -103,7 +109,7 @@ class EmailHistoryController extends FosRestController
         $emailHistoryRepository  = $dm->getRepository('FaithleadRestBundle:EmailHistory');
         $emailHistoryEntity     = $emailHistoryRepository->findOneById($id);
 
-        if (empty($emailHistoryEntity)) return array('status' => false);
+        if (empty($emailHistoryEntity)) return new Response('Id not found.', 404);
 
         return array('id'           => $emailHistoryEntity->getId(),
                     'subject'       => $emailHistoryEntity->getSubject(),
@@ -122,13 +128,15 @@ class EmailHistoryController extends FosRestController
      * @return View view instance
      *
      * @View()
-     * @ApiDoc(
-     *      input="Faithlead\RestBundle\Form\Type\EmailHistoryType"
+     * @ApiDoc(input="Faithlead\RestBundle\Form\Type\EmailHistoryType",
+     *         statusCodes={200="Returned when successful",
+     *                      404="Returned when user id found"},
+     *         output="Faithlead\RestBundle\Document\EmailHistory"
      * )
      */
     public function postAction($userId)
     {
-        if (empty($userId)) return array('status' => false);
+        if (empty($userId)) return new Response('user not found', 404);
 
         $dm                  = $this->get('doctrine.odm.mongodb.document_manager');
         $emailHistoryEntity = new EmailHistory();
@@ -155,7 +163,7 @@ class EmailHistoryController extends FosRestController
                 $dm->persist($emailHistoryEntity);
                 $dm->flush();
 
-                return array('id' => $emailHistoryEntity->getId(), 'status' => 'success');
+                return array('id' => $emailHistoryEntity->getId());
             } else {
                 return array($form);
             }
@@ -169,7 +177,9 @@ class EmailHistoryController extends FosRestController
      * @return array data
      *
      * @View()
-     * @ApiDoc()
+     * @ApiDoc(statusCodes={200="Returned when successful",
+     *                      404="Returned when id found"}
+     * )
      */
     public function deleteAction($id)
     {
@@ -177,12 +187,12 @@ class EmailHistoryController extends FosRestController
         $emailHistoryRepository  = $dm->getRepository('FaithleadRestBundle:EmailHistory');
         $emailHistoryEntity      = $emailHistoryRepository->findOneById($id);
 
-        if (empty($emailHistoryEntity)) return array('status' => false);
+        if (empty($emailHistoryEntity)) return new Response('Id not found.', 404);
 
         $dm->remove($emailHistoryEntity);
         $dm->flush();
 
-        return array('status' => 'success');
+        return new Response('success', 200);
     }
 
     /**
@@ -192,7 +202,8 @@ class EmailHistoryController extends FosRestController
      * @return View view instance
      *
      * @View()
-     * @ApiDoc()
+     * @ApiDoc(statusCodes={200="Returned when successful",
+     *                      404="Returned when id found"})
      */
     public function putAction($id)
     {
@@ -201,7 +212,7 @@ class EmailHistoryController extends FosRestController
         $emailHistoryRepository  = $dm->getRepository('FaithleadRestBundle:EmailHistory');
         $emailHistoryEntity      = $emailHistoryRepository->findOneById($id);
 
-        if (empty($emailHistoryEntity)) array('status' => false);
+        if (empty($emailHistoryEntity)) return new Response('Id not found.', 404);
 
         $emailHistoryEntity->setSubject($this->getRequest()->request->get('subject'));
         $emailHistoryEntity->setStatus($this->getRequest()->request->get('status'));
@@ -213,7 +224,7 @@ class EmailHistoryController extends FosRestController
         $dm->persist($emailHistoryEntity);
         $dm->flush();
 
-        return array('status' => 'success');
+        return new Response('success', 200);
     }
 
     /**
