@@ -17,3 +17,7 @@ emailhistory:
 order-info:
     type: rest
     resource: Faithlead\RestBundle\Controller\OrderInfoController
+
+email-parser:
+    path:      /email-parser
+    defaults:  { _controller: FaithleadRestBundle:EmailParser:index }
