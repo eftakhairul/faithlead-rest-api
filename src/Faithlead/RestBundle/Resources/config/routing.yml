@@ -19,5 +19,5 @@ order-info:
     resource: Faithlead\RestBundle\Controller\OrderInfoController
 
 email-parser:
-    path:      /email-parser
+    path:      /email-parser/
     defaults:  { _controller: FaithleadRestBundle:EmailParser:index }

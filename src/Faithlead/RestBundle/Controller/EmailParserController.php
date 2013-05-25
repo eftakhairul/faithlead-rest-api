@@ -5,12 +5,14 @@ namespace Faithlead\RestBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 
 /**
- * Class UserController
+ * Class EmailParserController
  * @package Faithlead\Bundle\RestBundle\Controller
  */
-class EmailParserController
+class EmailParserController extends Controller
 {
     public function indexAction()
     {
@@ -19,10 +21,7 @@ class EmailParserController
             ->setFrom('No-Reply@faithlead.net')
             ->setTo('saeed.sas@gmail.com')
             ->setBody(
-                $this->renderView(
-                    'FaithleadRestBundle:index:email.txt.twig',
-                    array('name' => 'Saeed')
-                )
+                   'email parser'
             )
         ;
         $this->get('mailer')->send($message);
