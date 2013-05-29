@@ -32,8 +32,6 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
  */
 class CompanyCategory extends FosRestController
 {
-
-
     /**
      * Get total of  Email History by User Id
      *
