@@ -31,7 +31,7 @@ class CompanyCategory
     protected $id;
 
     /**
-     * Name
+     * Category Name
      *
      * @MongoDB\Field(type="string")
      * @Expose
@@ -90,20 +90,24 @@ class CompanyCategory
     }
 
     /**
-     * @param $subcategory
+     * Set Subcategory
+     *
+     * @param \Faithlead\RestBundle\Document\Subcategory $subcategory
      * @return \Faithlead\RestBundle\Document\CompanyCategory
      */
-    public function setOneSubcategory($subcategory)
+    public function setOneSubcategory(\Faithlead\RestBundle\Document\Subcategory $subcategory)
     {
         $this->subcategory[] = $subcategory;
         return $this;
     }
 
     /**
-     * @param $subcategory
+     * Set Subcategories
+     *
+     * @param ArrayCollection $subcategory
      * @return \Faithlead\RestBundle\Document\CompanyCategory
      */
-    public function setSubcategory(ArrayCollection $subcategory)
+    public function setSubcategories(ArrayCollection $subcategory)
     {
         $this->subcategory = $subcategory;
         return $this;
@@ -118,6 +122,25 @@ class CompanyCategory
     }
 
 
+    /**
+     * Add Subcategory
+     *
+     * @param \Faithlead\RestBundle\Document\Subcategory $subcategory
+     */
+    public function addSubcategory(\Faithlead\RestBundle\Document\Subcategory $subcategory)
+    {
+        $this->subcategory[] = $subcategory;
+    }
+
+    /**
+    * Remove Subcategory
+    *
+    * @param \Faithlead\RestBundle\Document\Subcategory $subcategory
+    */
+    public function removeSubcategory(\Faithlead\RestBundle\Document\Subcategory $subcategory)
+    {
+        $this->subcategory->removeElement($subcategory);
+    }
 
     /**
      * Set createdAt
@@ -177,25 +200,5 @@ class CompanyCategory
     public function preUpdateSetUpdatedAt()
     {
         $this->updatedAt = time();
-    }
-    
-    /**
-     * Add tag
-     *
-     * @param \Faithlead\RestBundle\Document\Subcategory $subcategory
-     */
-    public function addSubcategory(\Faithlead\RestBundle\Document\Subcategory $subcategory)
-    {
-        $this->subcategory[] = $subcategory;
-    }
-
-    /**
-    * Remove Subcategory
-    *
-    * @param \Faithlead\RestBundle\Document\Subcategory $subcategory
-    */
-    public function removeSubcategory(\Faithlead\RestBundle\Document\Subcategory $subcategory)
-    {
-        $this->subcategory->removeElement($subcategory);
     }
 }
