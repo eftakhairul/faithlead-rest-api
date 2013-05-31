@@ -129,14 +129,14 @@ class EmailSettingController extends FosRestController
     }
 
     /**
-     * Create a new Email Template by User Id and Template Id
+     * Create a new Email Setting by User Id and Template Id
      *
      * @return View view instance
      *
      * @View()
      * @ApiDoc(statusCodes={ 200="Returned when successful",
      *                       404="Returned when user id or template id not found"},
-     *         description="Create a new Email Template by User Id and Email Template Id",
+     *         description="Create a new Email Setting by User Id and Email Template Id",
      *         output="Faithlead\RestBundle\Document\EmailSetting",
      *         input="Faithlead\RestBundle\Form\Type\EmailSettingType"
      * )
