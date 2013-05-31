@@ -84,9 +84,8 @@ class CompanyCategoryController extends FosRestController
      *
      * @View()
      * @ApiDoc(input="Faithlead\RestBundle\Form\Type\CompanyCategoryType",
-     *         statusCodes={200="Returned when successful",
-     *                      404="Returned when user id found"},
-     *         output="Faithlead\RestBundle\Document\CompanyCategory"
+     *         statusCodes={200="Returned Id when successful",
+     *                      505="Server Error"}
      * )
      */
     public function postAction()
@@ -125,7 +124,7 @@ class CompanyCategoryController extends FosRestController
      *
      * @View()
      * @ApiDoc(statusCodes={200="Returned when successful",
-     *                      404="Returned when id found"}
+     *                      404="Returned when id not found"}
      * )
      */
     public function deleteAction($id)
@@ -152,7 +151,7 @@ class CompanyCategoryController extends FosRestController
      *
      * @View()
      * @ApiDoc(statusCodes={200="Returned when successful",
-     *                      404="Returned when id found"})
+     *                      404="Returned when id not found"})
      */
     public function putAction($id)
     {

@@ -81,9 +81,9 @@ class EmailTemplateController extends FosRestController
      * @return View view instance
      *
      * @View()
-     * @ApiDoc(statusCodes={ 200="Returned when successful"},
+     * @ApiDoc(statusCodes={ 200="Returned ID when successful",
+     *                       500="Server error"},
      *         description="Create a new Email Template",
-     *         output="Faithlead\RestBundle\Document\EmailTemplate",
      *         input="Faithlead\RestBundle\Form\Type\EmailTemplateType"
      * )
      */
