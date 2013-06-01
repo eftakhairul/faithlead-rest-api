@@ -22,7 +22,7 @@ use JMS\Serializer\Annotation\Type;
 class UserCompanyCategory
 {
     /**
-     * Primary Id of Company Category
+     * Primary Id of User Company Category
      *
      * @MongoDB\Id
      * @Expose
