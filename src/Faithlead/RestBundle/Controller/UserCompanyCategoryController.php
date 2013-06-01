@@ -131,20 +131,20 @@ class UserCompanyCategoryController extends FosRestController
     {
         if (empty($id)) return new Response('Id not found.', 404);
 
-        $dm                        = $this->get('doctrine.odm.mongodb.document_manager');
-        $userCompanyCategoryRepository = $dm->getRepository('FaithleadRestBundle:UserCompanyCategory');
-        $serCompanyCategoryEntity     = $userCompanyCategoryRepository->findOneById($id);
+        $dm                              = $this->get('doctrine.odm.mongodb.document_manager');
+        $userCompanyCategoryRepository   = $dm->getRepository('FaithleadRestBundle:UserCompanyCategory');
+        $userCompanyCategoryEntity       = $userCompanyCategoryRepository->findOneById($id);
 
-        if (empty($serCompanyCategoryEntity)) return new Response('Id not found.', 404);
+        if (empty($userCompanyCategoryEntity)) return new Response('Id not found.', 404);
 
-        $dm->remove($serCompanyCategoryEntity);
+        $dm->remove($userCompanyCategoryEntity);
         $dm->flush();
 
         return new Response('success', 200);
     }
 
     /**
-     * Update an company category by Id
+     * Update an user company category by Id
      *
      * @param int $id
      * @return View view instance
@@ -155,21 +155,35 @@ class UserCompanyCategoryController extends FosRestController
      */
     public function putAction($id)
     {
-
         if (empty($id)) return new Response('Id not found.', 404);
 
-        $dm                        = $this->get('doctrine.odm.mongodb.document_manager');
-        $companyCategoryRepository = $dm->getRepository('FaithleadRestBundle:CompanyCategory');
-        $companyCategoryEntity     = $companyCategoryRepository->findOneById($id);
+        $dm                            = $this->get('doctrine.odm.mongodb.document_manager');
+        $userCompanyCategoryRepository = $dm->getRepository('FaithleadRestBundle:UserCompanyCategory');
+        $userCompanyCategoryEntity     = $userCompanyCategoryRepository->findOneById($id);
 
-        if (empty($companyCategoryEntity)) return new Response('Id not found.', 404);
+        if (empty($userCompanyCategoryEntity)) return new Response('Id not found.', 404);
 
-        $companyCategoryEntity->setName($this->getRequest()->request->get('name'));
+        $userId            =  $this->getRequest()->request->get('user');
+
+        if (!empty($userId)) {
+            $userRepository  = $dm->getRepository('FaithleadRestBundle:User');
+            $userEntity      = $userRepository->findBy(array('user' => $userId));
+            $userCompanyCategoryEntity->setUser($userEntity);
+        }
+
+        $companyCategoryId =  $this->getRequest()->request->get('companyCategory');
+
+        if(!empty($companyCategoryId)) {
+            $companyCategoryRepository  = $dm->getRepository('FaithleadRestBundle:CompanyCategory');
+            $companyCategoryEntity      = $companyCategoryRepository->findBy(array('companyCategory' => $companyCategoryId));
+            $userCompanyCategoryEntity->setCompanyCategory($companyCategoryEntity);
+
+        }
 
         $subcategories = explode(',', $this->getRequest()->request->get('subcategories', array()));
-        foreach($subcategories as $key => $subcategory) $companyCategoryEntity->setOneSubcategory(new Subcategory($subcategory));
+        foreach($subcategories as $key => $subcategory) $userCompanyCategoryEntity->setOneSubcategory(new Subcategory($subcategory));
 
-        $dm->persist($companyCategoryEntity);
+        $dm->persist($userCompanyCategoryEntity);
         $dm->flush();
 
         return new Response('success', 200);
