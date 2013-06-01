@@ -55,7 +55,7 @@ class EmailTemplateController extends FosRestController
      *
      * @View()
      * @ApiDoc(statusCodes={ 200="Returned when successful",
-     *                       404="Returned when user id found"},
+     *                       404="Returned when user id not found"},
      *         description="Get the details of Email Template by Id",
      *         output="Faithlead\RestBundle\Document\EmailTemplate"
      * )

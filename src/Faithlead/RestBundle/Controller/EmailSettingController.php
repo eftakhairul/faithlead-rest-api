@@ -41,7 +41,7 @@ class EmailSettingController extends FosRestController
      *
      * @View()
      * @ApiDoc(statusCodes={ 200="Return when success",
-     *                       404="Returned when user id found"},
+     *                       404="Returned when user id not found"},
      *         description="Get the list (array) of Email Setting by User Id",
      *         output="Faithlead\RestBundle\Document\EmailSetting"
      * )
@@ -82,7 +82,7 @@ class EmailSettingController extends FosRestController
      *
      * @View()
      * @ApiDoc(statusCodes={ 200="count",
-     *                       404="Returned when user id found"},
+     *                       404="Returned when user id not found"},
      *         description="Get total of  Email Setting by User Id"
      * )
      */
@@ -104,7 +104,7 @@ class EmailSettingController extends FosRestController
      *
      * @View()
      * @ApiDoc(statusCodes={ 200="array (id, body, period, subject, user_id)",
-     *                       404="Returned when user id found"},
+     *                       404="Returned when user id not found"},
      *         description="Get the details of Email Setting by Id",
      *         output="Faithlead\RestBundle\Document\EmailSetting"
      * )

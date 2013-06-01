@@ -56,7 +56,7 @@ class CompanyCategoryController extends FosRestController
      *
      * @View()
      * @ApiDoc(statusCodes={200="Returned when successful",
-     *                      404="Returned when id found"},
+     *                      404="Returned when id not found"},
      *         output="Faithlead\RestBundle\Document\CompanyCategory"
      * )
      */

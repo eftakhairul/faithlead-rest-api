@@ -85,17 +85,17 @@ class UserController extends FosRestController
     {
 
         $repository = $this->get('doctrine.odm.mongodb.document_manager')
-            ->getRepository('FaithleadRestBundle:User');
+                           ->getRepository('FaithleadRestBundle:User');
         $user = $repository->findOneById($id);
 
         return array('users' => array(
-            'id' => $user->getId(),
-            'firstName' => $user->getFirstName(),
-            'lastName' => $user->getLastName(),
-            'email' => $user->getEmail(),
-            'eompany' => $user->getCompany(),
-            'websiteUrl' => $user->getWebsite(),
-            'phone' => $user->getPhone()
+            'id'            => $user->getId(),
+            'firstName'     => $user->getFirstName(),
+            'lastName'      => $user->getLastName(),
+            'email'         => $user->getEmail(),
+            'eompany'       => $user->getCompany(),
+            'websiteUrl'    => $user->getWebsite(),
+            'phone'         => $user->getPhone()
         ));
     }
 
