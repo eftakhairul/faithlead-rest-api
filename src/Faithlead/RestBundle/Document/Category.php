@@ -1,7 +1,7 @@
 <?php
 
 /**
- * User Company Category
+ * Company Category
  *
  * @author Eftakahirul Islam  <eftakhairul@gmail.com>
  * Copyright @ Faithlead
@@ -15,11 +15,11 @@ use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * @MongoDB\Document(collection="user_company_categories",
- *                   repositoryClass="Faithlead\RestBundle\Repository\UserCompanyCategoryRepository"
+ * @MongoDB\Document(collection="categories",
+ *                   repositoryClass="Faithlead\RestBundle\Repository\CompanyCategoryRepository"
  * )
  */
-class UserCompanyCategory
+class Category
 {
     /**
      * Primary Id of Company Category
@@ -31,22 +31,13 @@ class UserCompanyCategory
     protected $id;
 
     /**
-     * It will return associated user id
+     * Category Name
      *
-     * @MongoDB\ReferenceOne(targetDocument="User", simple=true)
+     * @MongoDB\Field(type="string")
      * @Expose
-     * @Type("integer")
+     * @Type("string")
      */
-    protected $user;
-
-    /**
-     * It will return associated company category id
-     *
-     * @MongoDB\ReferenceOne(targetDocument="CompanyCategory", simple=true)
-     * @Expose
-     * @Type("integer")
-     */
-    protected $companyCategory;
+    protected $name;
 
     /**
      * @MongoDB\EmbedMany(targetDocument="Subcategory")
@@ -81,53 +72,28 @@ class UserCompanyCategory
     }
 
     /**
-     * Set new user
-     *
-     * @param \Faithlead\RestBundle\Document\User $user
-     * @return \Faithlead\RestBundle\Document\UserCompanyCategory
+     * @param string $name
+     * @return \Faithlead\RestBundle\Document\Category
      */
-    public function setUser(\Faithlead\RestBundle\Document\User $user)
+    public function setName($name)
     {
-        $this->user = $user;
+        $this->name = $name;
         return $this;
     }
 
     /**
-     * Return the user
-     *
-     * @return \Faithlead\RestBundle\Document\User
+     * @return string
      */
-    public function getUser()
+    public function getName()
     {
-        return $this->user;
-    }
-
-
-    /**
-     * @param CompanyCategory $companyCategory
-     * @return \Faithlead\RestBundle\Document\UserCompanyCategory
-     */
-    public function setCompanyCategory(\Faithlead\RestBundle\Document\CompanyCategory $companyCategory)
-    {
-        $this->companyCategory = $companyCategory;
-        return $this;
-    }
-
-    /**
-     * Get the company category
-     *
-     * @return \Faithlead\RestBundle\Document\CompanyCategory $companyCategory
-     */
-    public function getCompanyCategory()
-    {
-        return $this->companyCategory;
+        return $this->name;
     }
 
     /**
      * Set Subcategory
      *
      * @param \Faithlead\RestBundle\Document\Subcategory $subcategory
-     * @return \Faithlead\RestBundle\Document\UserCompanyCategory
+     * @return \Faithlead\RestBundle\Document\Category
      */
     public function setOneSubcategory(\Faithlead\RestBundle\Document\Subcategory $subcategory)
     {
@@ -139,7 +105,7 @@ class UserCompanyCategory
      * Set Subcategories
      *
      * @param ArrayCollection $subcategory
-     * @return \Faithlead\RestBundle\Document\UserCompanyCategory
+     * @return \Faithlead\RestBundle\Document\Category
      */
     public function setSubcategories(ArrayCollection $subcategory)
     {
@@ -180,7 +146,7 @@ class UserCompanyCategory
      * Set createdAt
      *
      * @param date $createdAt
-     * @return UserCompanyCategory
+     * @return \User
      */
     public function setCreatedAt($createdAt)
     {
@@ -202,7 +168,7 @@ class UserCompanyCategory
      * Set updatedAt
      *
      * @param date $updatedAt
-     * @return \Faithlead\RestBundle\Document\UserCompanyCategory
+     * @return \Faithlead\RestBundle\Document\Category
      */
     public function setUpdatedAt($updatedAt)
     {

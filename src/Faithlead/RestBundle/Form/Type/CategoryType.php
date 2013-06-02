@@ -1,7 +1,7 @@
 <?php
 
 /**
- * User Company Category
+ * Category
  *
  * @author Eftakahirul Islam  <eftakhairul@gmail.com>
  * Copyright @ Faithlead
@@ -12,17 +12,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserCompanyCategoryType extends AbstractType
+class CategoryType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('user');
-        $builder->add('companyCategory');
-        $builder->add('subcategories', 'text');
-
+        $builder->add('name', 'text');
     }
 
     /**
@@ -31,7 +28,7 @@ class UserCompanyCategoryType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'        => 'Faithlead\RestBundle\Document\UserCompanyCategory',
+            'data_class'        => 'Faithlead\RestBundle\Document\Category',
             'csrf_protection'   => false,
         ));
     }
@@ -41,6 +38,6 @@ class UserCompanyCategoryType extends AbstractType
      */
     public function getName()
     {
-        return 'usercompnaycategory';
+        return 'category';
     }
 }

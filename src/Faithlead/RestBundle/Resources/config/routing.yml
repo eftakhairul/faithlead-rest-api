@@ -14,13 +14,13 @@ emailhistory:
   type: rest
   resource: Faithlead\RestBundle\Controller\EmailHistoryController
 
+category:
+  type: rest
+  resource: Faithlead\RestBundle\Controller\CategoryController
+
 companycategory:
   type: rest
   resource: Faithlead\RestBundle\Controller\CompanyCategoryController
-
-usercompanycategory:
-  type: rest
-  resource: Faithlead\RestBundle\Controller\UserCompanyCategoryController
 
 order-info:
     type: rest

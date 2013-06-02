@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Company Category
+ * User/Company Category
  *
  * @author Eftakahirul Islam  <eftakhairul@gmail.com>
  * Copyright @ Faithlead
@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation\Type;
 
 /**
  * @MongoDB\Document(collection="company_categories",
- *                   repositoryClass="Faithlead\RestBundle\Repository\CompanyCategoryRepository"
+ *                   repositoryClass="Faithlead\RestBundle\Repository\UserCompanyCategoryRepository"
  * )
  */
 class CompanyCategory
@@ -31,13 +31,22 @@ class CompanyCategory
     protected $id;
 
     /**
-     * Category Name
+     * It will return associated user id
      *
-     * @MongoDB\Field(type="string")
+     * @MongoDB\ReferenceOne(targetDocument="User", simple=true)
      * @Expose
-     * @Type("string")
+     * @Type("integer")
      */
-    protected $name;
+    protected $user;
+
+    /**
+     * It will return associated category id
+     *
+     * @MongoDB\ReferenceOne(targetDocument="Category", simple=true)
+     * @Expose
+     * @Type("integer")
+     */
+    protected $category;
 
     /**
      * @MongoDB\EmbedMany(targetDocument="Subcategory")
@@ -72,21 +81,46 @@ class CompanyCategory
     }
 
     /**
-     * @param string $name
+     * Set new user
+     *
+     * @param \Faithlead\RestBundle\Document\User $user
      * @return \Faithlead\RestBundle\Document\CompanyCategory
      */
-    public function setName($name)
+    public function setUser(\Faithlead\RestBundle\Document\User $user)
     {
-        $this->name = $name;
+        $this->user = $user;
         return $this;
     }
 
     /**
-     * @return string
+     * Return the user
+     *
+     * @return \Faithlead\RestBundle\Document\User
      */
-    public function getName()
+    public function getUser()
     {
-        return $this->name;
+        return $this->user;
+    }
+
+
+    /**
+     * @param \Faithlead\RestBundle\Document\Category $category
+     * @return \Faithlead\RestBundle\Document\CompanyCategory
+     */
+    public function setCategory(\Faithlead\RestBundle\Document\Category $category)
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    /**
+     * Get the company category
+     *
+     * @return \Faithlead\RestBundle\Document\CompanyCategory $companyCategory
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 
     /**
@@ -146,7 +180,7 @@ class CompanyCategory
      * Set createdAt
      *
      * @param date $createdAt
-     * @return \User
+     * @return UserCompanyCategory
      */
     public function setCreatedAt($createdAt)
     {
@@ -168,7 +202,7 @@ class CompanyCategory
      * Set updatedAt
      *
      * @param date $updatedAt
-     * @return \User
+     * @return \Faithlead\RestBundle\Document\CompanyCategory
      */
     public function setUpdatedAt($updatedAt)
     {
