@@ -40,7 +40,7 @@ class EmailHistoryController extends FosRestController
      *
      * @View()
      * @ApiDoc(statusCodes={200="Returned when successful",
-     *                      404="Returned when user id found"},
+     *                      404="Returned when user id not found"},
      *         output="Faithlead\RestBundle\Document\EmailHistory"
      * )
      */
