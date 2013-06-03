@@ -42,10 +42,10 @@ class CompanyCategoryController extends FosRestController
     public function getCountAction()
     {
         $dm                        = $this->get('doctrine.odm.mongodb.document_manager');
-        $compnayCategoryRepository = $dm->getRepository('FaithleadRestBundle:CompanyCategory');
+        $companyCategoryRepository = $dm->getRepository('FaithleadRestBundle:CompanyCategory');
 
 
-        return array('count' => $compnayCategoryRepository->findCount());
+        return array('count' => $companyCategoryRepository->findCount());
     }
 
     /**
