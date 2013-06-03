@@ -19,7 +19,8 @@ use FOS\RestBundle\Controller\Annotations\View,
 
 use Faithlead\RestBundle\Document\Category,
     Faithlead\RestBundle\Document\Subcategory,
-    Faithlead\RestBundle\Form\Type\CategoryType;
+    Faithlead\RestBundle\Form\Type\CategoryType,
+    Faithlead\RestBundle\Form\Type\SubcategoryType;
 
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -117,6 +118,54 @@ class CategoryController extends FosRestController
     }
 
     /**
+     * Add subcategory by category id
+     *
+     ** @param int $id
+     * @return View view instance
+     *
+     * @View()
+     * @ApiDoc(input="Faithlead\RestBundle\Form\Type\SubCategoryType",
+     *         statusCodes={200="Returned subcategory name when successful",
+     *                      505="Server Error",
+     *                      404="Returned when id not found"}
+     * )
+     */
+    public function postSubCategoryAction($id)
+    {
+        if (empty($id)) return new Response('Id not found.', 404);
+
+        $dm                 = $this->get('doctrine.odm.mongodb.document_manager');
+        $categoryRepository = $dm->getRepository('FaithleadRestBundle:Category');
+        $categoryEntity     = $categoryRepository->findOneById($id);
+
+        if (empty($categoryEntity)) return new Response('Id not found.', 404);
+
+        $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
+        $SubcategoryEntity          = new Subcategory();
+        $form                    = $this->getSubcategoryForm($SubcategoryEntity);
+        $request                 = $this->getRequest();
+
+        if ('POST' == $request->getMethod()) {
+
+            $form->bind(array(
+                "subcategory" => $request->request->get('subcategory')
+                )
+            );
+
+            if ($form->isValid()) {
+
+                $categoryEntity->setOneSubcategory($SubcategoryEntity);
+                $dm->persist($categoryEntity);
+                $dm->flush();
+
+                return array('subcategory' => $SubcategoryEntity->getSubcategory());
+            } else {
+                return array($form);
+            }
+        }
+    }
+
+    /**
      * Delete the specific category by Id
      *
      * @param int $id
@@ -184,5 +233,16 @@ class CategoryController extends FosRestController
     protected function getForm($CategoryEntity = null)
     {
         return $this->createForm(new CategoryType(), $CategoryEntity);
+    }
+
+    /**
+     * Return a subcategory form
+     *
+     * @param null $SubcategoryEntity
+     * @return \Symfony\Component\Form\Form
+     */
+    protected function getSubcategoryForm($SubcategoryEntity = null)
+    {
+        return $this->createForm(new SubcategoryType(), $SubcategoryEntity);
     }
 }
