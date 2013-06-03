@@ -20,7 +20,7 @@ class CompanyCategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('user');
-        $builder->add('companyCategory');
+        $builder->add('category');
         $builder->add('subcategories', 'text');
 
     }

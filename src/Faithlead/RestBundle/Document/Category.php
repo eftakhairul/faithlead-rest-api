@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation\Type;
 
 /**
  * @MongoDB\Document(collection="categories",
- *                   repositoryClass="Faithlead\RestBundle\Repository\CompanyCategoryRepository"
+ *                   repositoryClass="Faithlead\RestBundle\Repository\CategoryRepository"
  * )
  */
 class Category
@@ -146,7 +146,7 @@ class Category
      * Set createdAt
      *
      * @param date $createdAt
-     * @return \User
+     * @return \Faithlead\RestBundle\Document\Category
      */
     public function setCreatedAt($createdAt)
     {

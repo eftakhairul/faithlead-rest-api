@@ -1,7 +1,7 @@
 <?php
 
 /**
- * User/Company Category
+ * Company Category
  *
  * @author Eftakahirul Islam  <eftakhairul@gmail.com>
  * Copyright @ Faithlead
@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation\Type;
 
 /**
  * @MongoDB\Document(collection="company_categories",
- *                   repositoryClass="Faithlead\RestBundle\Repository\UserCompanyCategoryRepository"
+ *                   repositoryClass="Faithlead\RestBundle\Repository\CompanyCategoryRepository"
  * )
  */
 class CompanyCategory

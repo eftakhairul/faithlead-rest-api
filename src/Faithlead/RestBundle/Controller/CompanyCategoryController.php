@@ -1,7 +1,7 @@
 <?php
 
 /**
- * User\Company Category
+ * Company Category
  *
  * @author Eftakahirul Islam  <eftakhairul@gmail.com>
  * Copyright @ Faithlead
@@ -27,7 +27,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 /**
  * Class Company Category
  * @package Faithlead\Bundle\RestBundle\Controller
- * @RouteResource("Companycategory")
+ * @RouteResource("companycategory")
  */
 class CompanyCategoryController extends FosRestController
 {
