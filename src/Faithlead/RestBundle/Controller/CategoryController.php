@@ -141,7 +141,7 @@ class CategoryController extends FosRestController
         if (empty($categoryEntity)) return new Response('Id not found.', 404);
 
         $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
-        $SubcategoryEntity          = new Subcategory();
+        $SubcategoryEntity       = new Subcategory();
         $form                    = $this->getSubcategoryForm($SubcategoryEntity);
         $request                 = $this->getRequest();
 

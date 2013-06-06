@@ -3,13 +3,14 @@
 namespace Faithlead\RestBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Faithlead\RestBundle\Form\Type\UserType;
 
 use FOS\RestBundle\Controller\Annotations\View,
     FOS\RestBundle\Controller\FOSRestController,
     FOS\RestBundle\Controller\Annotations\RouteResource;
 
-use Faithlead\RestBundle\Document\User;
+use Faithlead\RestBundle\Document\User,
+    Faithlead\RestBundle\Form\Type\UserType,
+    Faithlead\RestBundle\Form\Type\FbFunPageUrlType;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
@@ -112,8 +113,8 @@ class UserController extends FosRestController
      *
      * )
      */
-
-    public function postAction(Request $request){
+    public function postAction(Request $request)
+    {
 
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
 
@@ -142,9 +143,67 @@ class UserController extends FosRestController
         }
     }
 
+    /**
+     * Add FB Fun Page Url  by user id
+     *
+     * @param int $id
+     * @return View view instance
+     *
+     * @View()
+     * @ApiDoc(input="Faithlead\RestBundle\Form\Type\FbFunPageUrlType",
+     *         statusCodes={200="Returned success when it successful",
+     *                      505="Server Error",
+     *                      404="Returned when id not found"}
+     * )
+     */
+    public function postFbfubpagerlAction($id)
+    {
+        if (empty($id)) return new Response('Id not found.', 404);
+
+        $dm                  = $this->get('doctrine.odm.mongodb.document_manager');
+        $userRepository      = $dm->getRepository('FaithleadRestBundle:User');
+        $userEntity          = $userRepository->findOneById($id);
+
+        if (empty($userEntity)) return new Response('Id not found.', 404);
+
+        $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
+        $form                    = $this->getFbFunPageUrlForm($userEntity);
+        $request                 = $this->getRequest();
+
+        if ('POST' == $request->getMethod()) {
+
+            $form->bind(array(
+                "fbFanPageUrl" => $request->request->get('fbFanPageUrl')
+                )
+            );
+
+            if ($form->isValid()) {
+
+                $userEntity->setFbFanPageUrl($request->request->get('fbFanPageUrl'));
+                $dm->persist($userEntity);
+                $dm->flush();
+
+                return array('users' => 'success');
+            } else {
+                return array($form);
+            }
+        }
+    }
+
     protected function getForm($user = null)
     {
         return $this->createForm(new UserType(), $user);
+    }
+
+    /**
+     * Return a FbFunPageUrl form
+     *
+     * @param null $userEntity
+     * @return \Faithlead\RestBundle\Form\Type\FbFunPageUrlType
+     */
+    protected function getFbFunPageUrlForm($userEntity = null)
+    {
+        return $this->createForm(new FbFunPageUrlType(), $userEntity);
     }
 }
 

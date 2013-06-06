@@ -1,10 +1,13 @@
 <?php
-/**
- * Author: Saeed Ahmed
- * Email: saeed.sas@gmail.com
- * Date: 3/27/13
- */
 
+/**
+ * User Document
+ *
+ * @author Saeed Ahmed <saeed.sas@gmail.com>
+ * @author Eftakhairul Islam <eftakhairul@gmail.com>
+ *
+ * Copyright @ Faithlead
+ */
 namespace Faithlead\RestBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -20,15 +23,14 @@ use JMS\Serializer\Annotation\Type;
  * @ExclusionPolicy("all")
  */
 
-class User{
-
+class User
+{
     /**
      * @MongoDB\id
      * @Expose
      * @Type("string")
      */
     protected $id;
-
     
     /**
      * @MongoDB\String
@@ -100,6 +102,11 @@ class User{
     protected $accountConfirmed = true;
 
     /**
+     * @MongoDB\String
+     */
+    protected $fbFanPageUrl;
+
+    /**
      * @MongoDB\Date
      */
     protected $createdAt;
@@ -116,7 +123,6 @@ class User{
 
     public function _construct()
     {
-
     }
 
     /**
@@ -132,7 +138,7 @@ class User{
      * Set email
      *
      * @param string $email
-     * @return \User
+     * @return \Faithlead\RestBundle\Document\User
      */
 
     public function setEmail($email)
@@ -155,7 +161,7 @@ class User{
      * Set password
      *
      * @param string $password
-     * @return \User
+     * @return \Faithlead\RestBundle\Document\User
      */
     public function setPassword($password)
     {
@@ -177,7 +183,7 @@ class User{
      * Set firstName
      *
      * @param string $firstName
-     * @return \User
+     * @return \Faithlead\RestBundle\Document\User
      */
     public function setFirstName($firstName)
     {
@@ -199,7 +205,7 @@ class User{
      * Set lastName
      *
      * @param string $lastName
-     * @return \User
+     * @return \Faithlead\RestBundle\Document\User
      */
     public function setLastName($lastName)
     {
@@ -221,7 +227,7 @@ class User{
      * Set role
      *
      * @param string $role
-     * @return \User
+     * @return \Faithlead\RestBundle\Document\User
      */
     public function setRole($role)
     {
@@ -243,7 +249,7 @@ class User{
      * Set accountConfirmed
      *
      * @param boolean $accountConfirmed
-     * @return \User
+     * @return \Faithlead\RestBundle\Document\User
      */
     public function setAccountConfirmed($accountConfirmed)
     {
@@ -262,6 +268,24 @@ class User{
     }
 
     /**
+     * @param String $fbFanPageUrl
+     * @return \Faithlead\RestBundle\Document\User
+     */
+    public function setFbFanPageUrl($fbFanPageUrl)
+    {
+        $this->fbFanPageUrl = $fbFanPageUrl;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFbFanPageUrl()
+    {
+        return $this->fbFanPageUrl;
+    }
+
+    /**
      * Get id
      *
      * @return id $id
@@ -275,7 +299,7 @@ class User{
      * Set createdAt
      *
      * @param date $createdAt
-     * @return \User
+     * @return \Faithlead\RestBundle\Document\User
      */
     public function setCreatedAt($createdAt)
     {
@@ -296,8 +320,8 @@ class User{
     /**
      * Set updatedAt
      *
-     * @param date $updatedAt
-     * @return \User
+     * @param \date $updatedAt
+     * @return \Faithlead\RestBundle\Document\User
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -308,7 +332,7 @@ class User{
     /**
      * Get updatedAt
      *
-     * @return date $updatedAt
+     * @return \date $updatedAt
      */
     public function getUpdatedAt()
     {
@@ -319,7 +343,7 @@ class User{
      * Set status
      *
      * @param boolean $status
-     * @return \User
+     * @return \Faithlead\RestBundle\Document\User
      */
     public function setStatus($status)
     {
@@ -338,12 +362,14 @@ class User{
     }
 
     /** @MongoDB\PrePersist */
-    public function prePersistSetCreatedAt() {
+    public function prePersistSetCreatedAt()
+    {
         $this->createdAt = time();
     }
 
     /** @MongoDB\PreUpdate */
-    public function preUpdateSetUpdatedAt() {
+    public function preUpdateSetUpdatedAt()
+    {
         $this->updatedAt = time();
     }
 
@@ -351,7 +377,7 @@ class User{
      * Set company
      *
      * @param string $company
-     * @return \User
+     * @return \Faithlead\RestBundle\Document\User
      */
     public function setCompany($company)
     {
@@ -373,7 +399,7 @@ class User{
      * Set website
      *
      * @param string $website
-     * @return \User
+     * @return \Faithlead\RestBundle\Document\User
      */
     public function setWebsite($website)
     {
@@ -395,7 +421,7 @@ class User{
      * Set phone
      *
      * @param string $phone
-     * @return \User
+     * @return \Faithlead\RestBundle\Document\User
      */
     public function setPhone($phone)
     {
