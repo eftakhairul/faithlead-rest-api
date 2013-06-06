@@ -160,15 +160,15 @@ class UserController extends FosRestController
     {
         if (empty($id)) return new Response('Id not found.', 404);
 
-        $dm                  = $this->get('doctrine.odm.mongodb.document_manager');
-        $userRepository      = $dm->getRepository('FaithleadRestBundle:User');
-        $userEntity          = $userRepository->findOneById($id);
+        $dm             = $this->get('doctrine.odm.mongodb.document_manager');
+        $userRepository = $dm->getRepository('FaithleadRestBundle:User');
+        $userEntity     = $userRepository->findOneById($id);
 
         if (empty($userEntity)) return new Response('Id not found.', 404);
 
-        $dm                      = $this->get('doctrine.odm.mongodb.document_manager');
-        $form                    = $this->getFbFunPageUrlForm($userEntity);
-        $request                 = $this->getRequest();
+        $dm       = $this->get('doctrine.odm.mongodb.document_manager');
+        $form     = $this->getFbFunPageUrlForm($userEntity);
+        $request  = $this->getRequest();
 
         if ('POST' == $request->getMethod()) {
 
